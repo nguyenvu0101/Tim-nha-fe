@@ -24,9 +24,10 @@ const Navbar = () => {
   const handleLogoutConfirm = () => {
     console.log('Đã đăng xuất!');
     // Xử lý đăng xuất
+    localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('userEmail');
-    localStorage.removeItem('token');
+    localStorage.removeItem('id');
     setShowModal(false);
   };
 

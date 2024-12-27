@@ -65,41 +65,41 @@ const Post = () => {
     });
   };
 
- const handleSubmit = async (e) => {
-   e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const userId = localStorage.getItem('id');
+    // Dữ liệu cần gửi
+    const dataToSubmit = {
+      userId,
+      ...formData, // Bao gồm tất cả các dữ liệu từ formData
+    };
 
-   // Dữ liệu cần gửi
-   const dataToSubmit = {
-     ...formData, // Bao gồm tất cả các dữ liệu từ formData
-   };
+    // Chuyển đổi đối tượng thành chuỗi JSON
+    const jsonData = JSON.stringify(dataToSubmit);
 
-   // Chuyển đổi đối tượng thành chuỗi JSON
-   const jsonData = JSON.stringify(dataToSubmit);
+    // In ra chuỗi JSON để kiểm tra
+    console.log('Đã chuyển dữ liệu sang json');
 
-   // In ra chuỗi JSON để kiểm tra
-   console.log('Đã chuyển dữ liệu sang json');
+    try {
+      // Gửi dữ liệu đến backend bằng async/await
+      const response = await axios.post(
+        'http://localhost:3003/post',
+        jsonData,
+        {
+          headers: {
+            'Content-Type': 'application/json', // Đảm bảo rằng server nhận dữ liệu dạng JSON
+          },
+        }
+      );
 
-   try {
-     // Gửi dữ liệu đến backend bằng async/await
-     const response = await axios.post(
-       'http://localhost:3003/post',
-       jsonData,
-       {
-         headers: {
-           'Content-Type': 'application/json', // Đảm bảo rằng server nhận dữ liệu dạng JSON
-         },
-       }
-     );
-
-     // Xử lý phản hồi khi gửi thành công
-     console.log('Dữ liệu đã được gửi thành công:', response.data);
-     alert('Dữ liệu đã được gửi thành công!');
-   } catch (error) {
-     // Xử lý lỗi nếu có
-     alert('Có lỗi xảy ra khi gửi dữ liệu!');
-   }
- };
-
+      // Xử lý phản hồi khi gửi thành công
+      console.log('Dữ liệu đã được gửi thành công:', response.data);
+      alert('Dữ liệu đã được gửi thành công!');
+    } catch (error) {
+      // Xử lý lỗi nếu có
+      alert('Có lỗi xảy ra khi gửi dữ liệu!');
+    }
+  };
 
   useEffect(() => {
     axios

@@ -20,8 +20,9 @@ function Login() {
       const username = res.data.username;
       dispatch(loginSuccess(res.data));
       localStorage.setItem('token', res.data.token);
-      // Lưu thông tin người dùng vào localStorage (nếu cần)
-      localStorage.setItem('username', username);
+      localStorage.setItem('username',username);
+       localStorage.setItem('email', res.data.email);
+      localStorage.setItem('id', id);
       navigate(`/home/${id}`);
     } catch (res) {
       if (res.status === 404) {
