@@ -1,0 +1,34 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../../Reactjs/HocNode"
+		},
+		{
+			"path": "../../../../../../../Reactjs/JWT/JWT-Tutorial/backend"
+		},
+		{
+			"path": "../../../../../../../Reactjs/JWT/JWT-Tutorial/frontend"
+		},
+		{
+			"path": "../../../../BE"
+		},
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../../../../Reactjs/Hocjs"
+		},
+		{
+			"path": "../../../../../Search-House/bedoan"
+		},
+		{
+			"path": "../../../../../Search-House/fedoan"
+		},
+		{
+			"path": "../../../../../../Web-Xe-Hoi"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "frontend"
+	}
+}

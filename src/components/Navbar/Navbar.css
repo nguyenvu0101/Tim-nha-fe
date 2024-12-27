@@ -1,0 +1,107 @@
+/* Header Tổng Quát */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+}
+
+/* Phần bên trái của Header */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Phần bên phải của Header */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Nút Trang Chủ */
+.home-btn {
+    padding: 8px 15px;
+    color: rgb(18, 4, 4);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.home-btn:hover {
+    color: #3532ef;
+}
+
+/* Dropdown */
+.dropdown {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Ô Input Tìm Kiếm */
+.search-input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 250px;
+}
+
+/* Nút Tìm */
+.search-btn {
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-btn:hover {
+    background-color: #218838;
+}
+
+/* Nút Chức Năng */
+.nav-btn {
+    padding: 8px 15px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-btn a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-btn:hover {
+    background-color: #5a6268;
+}
+
+/* Nút Đăng Tin */
+.post-btn {
+    background-color: #ffc107;
+    font-weight: bold;
+}
+
+.post-btn:hover {
+    background-color: #e0a800;
+}
+.header .user-name{
+    margin-right: 5px;
+    background-color: #297fca;
+    padding: 5px;
+    color: #ddd;
+    border-radius: 5px;
+}
