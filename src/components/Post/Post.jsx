@@ -56,12 +56,29 @@ const Post = () => {
   // Xử lý thay đổi ảnh
   const handleFileChange = (e) => {
     const files = e.target.files;
-    const imagesArray = Array.from(files).map((file) =>
+    const existingImages = formData.images;
+
+    // Giới hạn số lượng ảnh tối đa là 5
+    if (existingImages.length + files.length > 5) {
+      alert('Bạn chỉ có thể upload tối đa 5 ảnh!');
+      return;
+    }
+
+    // Thêm các ảnh mới vào danh sách
+    const newImages = Array.from(files).map((file) =>
       URL.createObjectURL(file)
-    ); // Chuyển đổi file thành URL để hiển thị
+    );
     setFormData({
       ...formData,
-      images: imagesArray,
+      images: [...existingImages, ...newImages],
+    });
+  };
+  const handleRemoveImage = (event, index) => {
+    event.preventDefault(); // Ngăn chặn hành vi mặc định
+    const updatedImages = formData.images.filter((_, i) => i !== index);
+    setFormData({
+      ...formData,
+      images: updatedImages,
     });
   };
 
@@ -345,13 +362,41 @@ const Post = () => {
             {formData.images.length > 0 && (
               <div>
                 {formData.images.map((image, index) => (
-                  <img
+                  <div
                     key={index}
-                    src={image}
-                    alt={`Preview ${index}`}
-                    width="100"
-                    height="100"
-                  />
+                    style={{
+                      position: 'relative',
+                      display: 'inline-block',
+                      margin: '5px',
+                    }}
+                  >
+                    <img
+                      src={image}
+                      alt={`Preview ${index}`}
+                      width="100"
+                      height="100"
+                      style={{ borderRadius: '5px', border: '1px solid #ddd' }}
+                    />
+                    <button
+                      type="button" // Đảm bảo không gửi form
+                      style={{
+                        position: 'absolute',
+                        top: '5px',
+                        right: '5px',
+                        background: 'red',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '50%',
+                        cursor: 'pointer',
+                        width: '20px',
+                        height: '20px',
+                        fontSize: '12px',
+                      }}
+                      onClick={(event) => handleRemoveImage(event, index)}
+                    >
+                      ×
+                    </button>
+                  </div>
                 ))}
               </div>
             )}
