@@ -27,7 +27,6 @@ export const postContent = async (post, dispatch, navigate) => {
   try {
     const res = axios.post('http://localhost:3003/post', post);
      dispatch(postsSuccess(res.data));
-     navigate('/home');
   } catch (err) {
     dispatch(postFailed());
   }

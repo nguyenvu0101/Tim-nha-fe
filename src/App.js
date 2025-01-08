@@ -6,12 +6,14 @@ import Home from './pages/Home/Home.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import HomeUser from './pages/HomeUser/HomeUser.jsx';
 import Post from './components/Post/Post.jsx';
+import PostList from './components/PostList/PostList.jsx'
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/Post" element={<Post />} />
+          <Route path="/list-post" element={<PostList />} />
+          <Route path="/post" element={<Post />} />
           <Route path="/home/:id" element={<HomeUser />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

@@ -112,6 +112,7 @@ const Post = () => {
       // Xử lý phản hồi khi gửi thành công
       console.log('Dữ liệu đã được gửi thành công:', response.data);
       alert('Dữ liệu đã được gửi thành công!');
+      navigate(`/home/${userId}`);
     } catch (error) {
       // Xử lý lỗi nếu có
       alert('Có lỗi xảy ra khi gửi dữ liệu!');
