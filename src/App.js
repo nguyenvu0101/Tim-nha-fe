@@ -12,7 +12,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/list-post" element={<PostList />} />
+          <Route path="/post-list" element={<PostList />} />
           <Route path="/post" element={<Post />} />
           <Route path="/home/:id" element={<HomeUser />} />
           <Route path="/register" element={<Register />} />

@@ -1,76 +1,76 @@
-.post-container {
+.post-list {
+    padding: 20px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    font-family: Arial, sans-serif;
+}
+
+.posts {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
 }
 
-.post-card {
-    border: 1px solid #ccc;
+.post-item {
+    border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
     width: 300px;
     background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
 }
 
-.post-card:hover {
-    transform: translateY(-10px);
+.post-item h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
-h2 {
-    color: #333;
-}
-
-p {
+.post-item p {
     margin: 5px 0;
-    color: #555;
+    border: none;
 }
 
-ul {
-    list-style-type: none;
-    padding-left: 0;
+.post-images img {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 100%;
 }
-
-.image-container {
+.posts{
     display: flex;
-    gap: 10px;
-    overflow-x: scroll;
+    justify-content:space-around;
 }
-
-.post-image {
-    width: 100px;
-    height: 100px;
+.posts .tien-ich{
+    list-style: none;
+}
+.post-item{
+    width: 40%;
+    height: auto;
+}
+.post-item .price{
+    
+}
+.post-item strong{
+    font-weight: 300;
+    color: black;
+}
+.post-item .phone{
+    display:flex;
+}
+.phone .icon-phone{
+    margin-right: 5px;
+}
+.phone{
     border-radius: 5px;
 }
-
-.pagination {
-    display: flex;
-    justify-content: center;
+.post-list .paginate{
+    margin-left: 500px;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
+.post-item .main-image{
 
-.pagination-button {
-    padding: 10px 15px;
-    margin: 0 5px;
-    border: 1px solid #ccc;
+}
+.post-item .main-image img{
+    width: 95%;
+    margin: 10px;
     border-radius: 5px;
-    background-color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.pagination-button:hover {
-    background-color: #ddd;
-}
-
-.pagination-button.active {
-    background-color: #007bff;
-    color: white;
-}
-
-.pagination-button:disabled {
-    background-color: #f5f5f5;
-    cursor: not-allowed;
 }

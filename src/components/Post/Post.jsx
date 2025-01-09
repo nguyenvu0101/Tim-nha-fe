@@ -56,23 +56,19 @@ const Post = () => {
   // Xử lý thay đổi ảnh
   const handleFileChange = (e) => {
     const files = e.target.files;
-    const existingImages = formData.images;
+    const reader = new FileReader();
 
-    // Giới hạn số lượng ảnh tối đa là 5
-    if (existingImages.length + files.length > 5) {
-      alert('Bạn chỉ có thể upload tối đa 5 ảnh!');
-      return;
-    }
+    reader.onload = (event) => {
+      const base64Image = event.target.result; // Chuỗi Base64
+      setFormData((prev) => ({
+        ...prev,
+        images: [...prev.images, base64Image], // Lưu Base64 vào state
+      }));
+    };
 
-    // Thêm các ảnh mới vào danh sách
-    const newImages = Array.from(files).map((file) =>
-      URL.createObjectURL(file)
-    );
-    setFormData({
-      ...formData,
-      images: [...existingImages, ...newImages],
-    });
+    Array.from(files).forEach((file) => reader.readAsDataURL(file));
   };
+
   const handleRemoveImage = (event, index) => {
     event.preventDefault(); // Ngăn chặn hành vi mặc định
     const updatedImages = formData.images.filter((_, i) => i !== index);

@@ -4,7 +4,7 @@
   color: white;
   padding: 20px 0 0;
   font-size: 14px;
-  margin-top: 40px;
+  margin-top: 5px;
 }
 
 .footer-container {
@@ -21,13 +21,16 @@
 }
 
 .footer-section h3 {
+  margin-left: 10px;
   color: #f39c12;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .footer-section p,
 .footer-section ul {
   margin: 0;
+  text-align: center;
 }
 
 .footer-section a {
@@ -36,7 +39,7 @@
 }
 
 .footer-section a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .social-links li,
@@ -49,6 +52,9 @@
   color: #fff;
 }
 
+.quick-links a:hover{
+  color: #f39c12;
+}
 .social-links a:hover {
   color: #f39c12;
 }
