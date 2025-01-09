@@ -4,8 +4,9 @@ import axios from 'axios';
 
 const Header = () => {
   const [provinces, setProvinces] = useState([]); // Danh sách tỉnh
-  const [selectedProvince, setSelectedProvince] = useState(null); // Tỉnh đã chọn
   const [districts, setDistricts] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState(null); // Tỉnh đã chọn
+  const [selectedDistrict, setSelectedDistrict] = useState(null); // Huyện được chọn
 
   useEffect(() => {
     axios
@@ -22,14 +23,25 @@ const Header = () => {
     );
     setDistricts(selectedProvinceData?.districts || []);
   };
+const handleDistrictChange = (event) => {
+  const districtId = event.target.value;
+  setSelectedDistrict(districtId); // Cập nhật huyện
+};
+
   return (
     <header className="header">
       <div className="header-left">
         {/* Ô Trang chủ */}
-        <h1 className="home-btn">Trang Chủ</h1>
+        <h1 className="home-btn">
+          <a href="http://localhost:3000">Trang Chủ</a>
+        </h1>
 
         {/* Dropdown Tìm Tỉnh/Thành Phố */}
-        <select className="dropdown" onChange={handleProvinceChange}>
+        <select
+          className="dropdown"
+          onChange={handleProvinceChange}
+          value={selectedProvince || ''}
+        >
           <option value="">Chọn Tỉnh / Thành Phố</option>
           {provinces.map((province) => (
             <option key={province.code} value={province.code}>
@@ -39,7 +51,12 @@ const Header = () => {
         </select>
 
         {/* Dropdown Tìm Huyện/Quận */}
-        <select className="dropdown" disabled={!selectedProvince}>
+        <select
+          className="dropdown"
+          disabled={!selectedProvince}
+          value={selectedDistrict || ''}
+          onChange={handleDistrictChange}
+        >
           <option value="">Chọn Quận / Huyện</option>
           {districts.map((district) => (
             <option key={district.code} value={district.code}>

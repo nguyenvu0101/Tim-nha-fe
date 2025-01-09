@@ -25,6 +25,7 @@
 
 /* Nút Trang Chủ */
 .home-btn {
+  margin-top: 10px;
   padding: 8px 15px;
   color: rgb(18, 4, 4);
   border: none;
@@ -36,7 +37,11 @@
 .home-btn:hover {
   color: #3532ef;
 }
-
+.home-btn a {
+  color: #211f1f;
+  text-decoration: none;
+  font-weight: 700;
+}
 /* Dropdown */
 .dropdown {
   padding: 8px;

@@ -11,9 +11,60 @@ const PostList = () => {
   const [posts, setPosts] = useState([]); // Lưu trữ dữ liệu từ API
   const [loading, setLoading] = useState(true); // Trạng thái loading
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
-  const itemsPerPage = 6;
+  const itemsPerPage = 4;
   const [currentImages, setCurrentImages] = useState({}); // Lưu trữ ảnh lớn cho từng bài đăng
 
+  const priceRanges = [
+    { label: 'Dưới 1 triệu', min: 0, max: 1 },
+    { label: '1 - 3 triệu', min: 1, max: 3 },
+    { label: '3 - 5 triệu', min: 3, max: 5 },
+    { label: '5 - 10 triệu', min: 5, max: 10 },
+    { label: '10 - 20 triệu', min: 10, max: 20 },
+    { label: '20 - 30 triệu', min: 20, max: 30 },
+    { label: 'Trên 30 triệu', min: 30, max: Infinity },
+  ];
+  const areaRanges = [
+    { label: 'Dưới 20 m²', min: 0, max: 20 },
+    { label: '20 - 30 m²', min: 20, max: 30 },
+    { label: '30 - 40 m²', min: 30, max: 40 },
+    { label: '40 - 50 m²', min: 40, max: 50 },
+    { label: '50 - 60 m²', min: 50, max: 60 },
+    { label: '60 - 70 m²', min: 60, max: 70 },
+    { label: 'Trên 70 m²', min: 70, max: Infinity },
+  ];
+
+  const handleFilterPrice = async (minPrice, maxPrice) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        'http://localhost:3003/post/filter-price-post',
+        {
+          params: { minPrice, maxPrice },
+        }
+      );
+      setPosts(response.data); // Cập nhật bài đăng
+      setLoading(false);
+    } catch (error) {
+      console.error('Lỗi khi lọc bài đăng:', error.message);
+      setLoading(false);
+    }
+  };
+const handleFilterArea = async (minArea, maxArea) => {
+  try {
+    setLoading(true);
+    const response = await axios.get(
+      'http://localhost:3003/post/filter-area-post',
+      {
+        params: { minArea, maxArea },
+      }
+    );
+    setPosts(response.data); // Cập nhật bài đăng
+    setLoading(false);
+  } catch (error) {
+    console.error('Lỗi khi lọc bài đăng:', error.message);
+    setLoading(false);
+  }
+};
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -47,14 +98,43 @@ const PostList = () => {
   };
 
   return (
-    <div>
-      <div>
-        
+    <div className="bai-dang">
+      <div className="bo-loc col-xl-2">
+        <div>
+          <h4>Tìm theo khoảng giá</h4>
+          <div className="filter-buttons">
+            {priceRanges.map((range, index) => (
+              <button
+                key={index}
+                className="btn btn-outline-primary"
+                onClick={() => handleFilterPrice(range.min, range.max)}
+                style={{ margin: '5px' }}
+              >
+                {range.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h4>Tìm theo diện tích</h4>
+          <div className="filter-buttons">
+            {areaRanges.map((range, index) => (
+              <button
+                key={index}
+                className="btn btn-outline-primary"
+                onClick={() => handleFilterArea(range.min, range.max)}
+                style={{ margin: '5px' }}
+              >
+                {range.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      <div className="post-list">
+      <div className="post-list col-xl-10">
         {posts.length === 0 ? (
-          <p>Không có bài đăng nào.</p>
+          <p>Không có bài đăng nào</p>
         ) : (
           <div className="posts col-xl-12">
             {displayItems.map((post) => (
@@ -64,8 +144,8 @@ const PostList = () => {
                     <img
                       src={currentImages[post._id] || post.images[0]} // Sử dụng ảnh lớn của từng bài đăng
                       alt="Main"
-                      width="500"
-                      height="500"
+                      width="300"
+                      height="300"
                       style={{ margin: '10px' }}
                     />
                   </div>
@@ -82,8 +162,8 @@ const PostList = () => {
                         <img
                           src={image}
                           alt={`Thumbnail ${index}`}
-                          width="100"
-                          height="100"
+                          width="60px"
+                          height="60px"
                           style={{
                             borderRadius: '5px',
                             margin: '5px',

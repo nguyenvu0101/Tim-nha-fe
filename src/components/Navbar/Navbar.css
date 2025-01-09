@@ -32,8 +32,12 @@
     cursor: pointer;
     font-size: 18px;
 }
-
-.home-btn:hover {
+.home-btn a{
+   color: #211f1f;
+   text-decoration: none;
+   font-weight: 700;
+}
+.home-btn:hover a{
     color: #3532ef;
 }
 
@@ -105,3 +109,4 @@
     color: #211f1f;
     border-radius: 5px;
 }
+

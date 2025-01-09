@@ -65,7 +65,9 @@ const Navbar = () => {
     <nav className="header">
       <div className="header-left">
         {/* Ô Trang chủ */}
-        <h1 className="home-btn">Trang Chủ</h1>
+        <h1 className="home-btn">
+          <a href="http://localhost:3000/">Trang Chủ</a>
+        </h1>
 
         {/* Dropdown Tìm Tỉnh/Thành Phố */}
         <select className="dropdown" onChange={handleProvinceChange}>
