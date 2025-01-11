@@ -7,11 +7,13 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import HomeUser from './pages/HomeUser/HomeUser.jsx';
 import Post from './components/Post/Post.jsx';
 import PostList from './components/PostList/PostList.jsx'
+import InformationUser from './components/InformationUser/InformationUser.jsx';
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
+          <Route path="/information/:id" element={<InformationUser />} />
           <Route path="/post-list" element={<PostList />} />
           <Route path="/post" element={<Post />} />
           <Route path="/home/:id" element={<HomeUser />} />

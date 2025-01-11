@@ -19,11 +19,12 @@ function Login() {
       const id = res.data._id;
       const username = res.data.username;
       dispatch(loginSuccess(res.data));
-      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('token', res.data.accessToken);
       localStorage.setItem('username',username);
        localStorage.setItem('email', res.data.email);
       localStorage.setItem('id', id);
       navigate(`/home/${id}`);
+      console.log(res.data.accessToken);
     } catch (res) {
       if (res.status === 404) {
         setErrorMessage('Tài khoản hoặc mật khẩu không chính xác.');

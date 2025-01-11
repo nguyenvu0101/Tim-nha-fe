@@ -108,5 +108,12 @@
     padding: 5px;
     color: #211f1f;
     border-radius: 5px;
+    font-weight: 600;
 }
-
+.header .user-name a{
+ text-decoration: none;
+ color: #6c757d;   
+}
+.header .user-name a:hover {
+    color: #7ea213;
+}

@@ -56,15 +56,19 @@
     display:flex;
 }
 .phone .icon-phone{
-    margin-right: 5px;
+    margin-right: 7px;
 }
 .phone{
     border-radius: 5px;
+    padding: 5px;
+    float: right;
 }
 .post-list .paginate{
-    margin-left: 90%;
+    margin-left: 80%;
     margin-top: 20px;
     margin-bottom: 20px;
+    height: 20px;
+    width: auto;
 }
 .post-item .main-image{
 
@@ -93,4 +97,30 @@
 }
 .filter-buttons .btn:active {
     background-color: rgb(45, 44, 42);
+}
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    color: #007bff;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.page-item.active .page-link {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.pagination .page-item{
+    padding: 0;
+    margin: 0 1px;
 }

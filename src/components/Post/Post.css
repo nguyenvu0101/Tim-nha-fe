@@ -67,6 +67,7 @@ button:hover {
     margin-left: 115px;
     width: 70%;
     height: 200px;
+    white-space: pre-line;
 }
 .area {
         border: 1px solid black;

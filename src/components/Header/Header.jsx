@@ -5,28 +5,52 @@ import axios from 'axios';
 const Header = () => {
   const [provinces, setProvinces] = useState([]); // Danh sách tỉnh
   const [districts, setDistricts] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState(null); // Tỉnh đã chọn
-  const [selectedDistrict, setSelectedDistrict] = useState(null); // Huyện được chọn
-
+  const [selectedProvince, setSelectedProvince] = useState('');
+  const [selectedDistrict, setSelectedDistrict] = useState('');
   useEffect(() => {
     axios
       .get('https://provinces.open-api.vn/api/?depth=2')
       .then((response) => setProvinces(response.data))
       .catch((error) => console.error('Error fetching provinces:', error));
   }, []);
+  // Load danh sách huyện khi tỉnh thay đổi
+  useEffect(() => {
+    if (selectedProvince) {
+      const selectedProvinceData = provinces.find(
+        (province) => province.code === Number(selectedProvince)
+      );
+      setDistricts(selectedProvinceData?.districts || []); // Cập nhật danh sách huyện
+    } else {
+      setDistricts([]); // Xóa danh sách huyện nếu không có tỉnh nào được chọn
+    }
+  }, [selectedProvince, provinces]);
+
   const handleProvinceChange = (event) => {
     const provinceId = event.target.value;
-    setSelectedProvince(provinceId);
 
+    // Lấy thông tin tỉnh dựa trên provinceId
     const selectedProvinceData = provinces.find(
-      (p) => p.code === Number(provinceId)
+      (province) => province.code === Number(provinceId)
     );
-    setDistricts(selectedProvinceData?.districts || []);
+
+    if (selectedProvinceData) {
+      setSelectedProvince(provinceId); // Lưu ID vào state
+      setSelectedDistrict(''); // Reset huyện khi tỉnh thay đổi
+    }
   };
-const handleDistrictChange = (event) => {
-  const districtId = event.target.value;
-  setSelectedDistrict(districtId); // Cập nhật huyện
-};
+
+  const handleDistrictChange = (event) => {
+    const districtId = event.target.value;
+
+    // Lấy thông tin huyện dựa trên districtId
+    const selectedDistrictData = districts.find(
+      (district) => district.code === Number(districtId)
+    );
+
+    if (selectedDistrictData) {
+      setSelectedDistrict(districtId); // Lưu ID vào state
+    }
+  };
 
   return (
     <header className="header">

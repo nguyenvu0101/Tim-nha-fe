@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Footer() {
   return (
-    <div className="footer">
-      <div className="footer-container">
-        <div className="footer-section">
+    <div className="footer-1">
+      <div className="footer-container-1">
+        <div className="footer-section-1">
           <h3>Liên hệ</h3>
           <p>
             <strong>Address: </strong> 123 Main Street, City, Country
@@ -25,9 +25,9 @@ function Footer() {
           </p>
         </div>
 
-        <div className="footer-section">
+        <div className="footer-section-1">
           <h3>Follow Us</h3>
-          <ul className="social-links">
+          <ul className="social-links-1">
             <li>
               <FontAwesomeIcon icon={faFacebook} />
               <a
@@ -64,9 +64,9 @@ function Footer() {
           </ul>
         </div>
 
-        <div className="footer-section">
+        <div className="footer-section-1">
           <h3>Quick Links</h3>
-          <ul className="quick-links">
+          <ul className="quick-links-1">
             <li>
               <a href="/about">About Us</a>
             </li>
@@ -82,8 +82,8 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="footer-bottom">
-        <p>&copy; 2025 TimNhatro. All Rights Reserved.</p>
+      <div className="footer-bottom-1">
+        <p>&copy; 2025 TIMNHATRO . ALL RIGHTS RESERVED</p>
       </div>
     </div>
   );

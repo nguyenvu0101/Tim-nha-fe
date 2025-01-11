@@ -1,5 +1,5 @@
 /* src/components/Footer.css */
-.footer {
+.footer-1 {
   background-color: #333;
   color: white;
   padding: 20px 0 0;
@@ -7,7 +7,7 @@
   margin-top: 5px;
 }
 
-.footer-container {
+.footer-container-1 {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -15,51 +15,64 @@
   margin-bottom: 10px;
 }
 
-.footer-section {
+.footer-section-1 {
   flex: 1;
   margin-right: 20px;
 }
 
-.footer-section h3 {
+.footer-section-1 h3 {
   margin-left: 10px;
   color: #f39c12;
   margin-bottom: 10px;
   text-align: center;
 }
 
-.footer-section p,
-.footer-section ul {
+.footer-section-1 p,
+.footer-section-1 ul {
   margin: 0;
   text-align: center;
-}
+  color: #fff;
 
-.footer-section a {
+}
+.footer-section-1 p{
+  margin-bottom: 5px;
+  height: 42px;
+  border-radius: 4px;
+}
+.footer-section-1 a {
   color: #fff;
   text-decoration: none;
 }
-
-.footer-section a:hover {
+.footer-section-1 strong{
+  color: #fff;
+  text-decoration: none;
+}
+.footer-section-1 a:hover {
   text-decoration: none;
 }
 
-.social-links li,
-.quick-links li {
+.social-links-1 li,
+.quick-links-1 li {
   list-style: none;
   margin-bottom: 5px;
+  background-color: #333;
+  border: none;
 }
-
-.social-links a {
+.social-links-1 li{
+  boder : 1px #333 solid ;
+}
+.social-links-1 a {
   color: #fff;
 }
 
-.quick-links a:hover{
+.quick-links-1 a:hover{
   color: #f39c12;
 }
-.social-links a:hover {
+.social-links-1 a:hover {
   color: #f39c12;
 }
 
-.footer-bottom {
+.footer-bottom-1 {
   text-align: center;
   padding: 10px 0;
   background-color: #222;

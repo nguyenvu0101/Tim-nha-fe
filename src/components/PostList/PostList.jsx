@@ -13,6 +13,8 @@ const PostList = () => {
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
   const itemsPerPage = 4;
   const [currentImages, setCurrentImages] = useState({}); // Lưu trữ ảnh lớn cho từng bài đăng
+  const [selectedProvince, setSelectedProvince] = useState(''); // Tỉnh được chọn
+  const [selectedDistrict, setSelectedDistrict] = useState(''); // Huyện được chọn
 
   const priceRanges = [
     { label: 'Dưới 1 triệu', min: 0, max: 1 },
@@ -49,41 +51,48 @@ const PostList = () => {
       setLoading(false);
     }
   };
-const handleFilterArea = async (minArea, maxArea) => {
-  try {
-    setLoading(true);
-    const response = await axios.get(
-      'http://localhost:3003/post/filter-area-post',
-      {
-        params: { minArea, maxArea },
-      }
-    );
-    setPosts(response.data); // Cập nhật bài đăng
-    setLoading(false);
-  } catch (error) {
-    console.error('Lỗi khi lọc bài đăng:', error.message);
-    setLoading(false);
-  }
-};
+  const handleFilterArea = async (minArea, maxArea) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        'http://localhost:3003/post/filter-area-post',
+        {
+          params: { minArea, maxArea },
+        }
+      );
+      setPosts(response.data); // Cập nhật bài đăng
+      setLoading(false);
+    } catch (error) {
+      console.error('Lỗi khi lọc bài đăng:', error.message);
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // Gửi yêu cầu GET tới API để lấy dữ liệu
+        setLoading(true);
         const response = await axios.get('http://localhost:3003/post/list');
         setPosts(response.data); // Lưu dữ liệu vào state
-        setLoading(false); // Thay đổi trạng thái loading
       } catch (error) {
         console.error('Lỗi khi gọi API:', error.message);
-        setLoading(false); // Dừng trạng thái loading nếu có lỗi
+      } finally {
+        setLoading(false); // Dừng trạng thái loading
       }
     };
 
     fetchPosts(); // Gọi hàm fetchPosts khi component mount
-  }, []); // Chạy 1 lần khi component mount
+  }, [selectedProvince, selectedDistrict]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+  // Tính toán các trang hiển thị và nhóm trang
+  const pagesToShow = 4; // Hiển thị tối đa 4 trang mỗi lần
+  const totalPages = Math.ceil(posts.length / itemsPerPage); // Tổng số trang
+
+  const startPage =
+    Math.floor((currentPage - 1) / pagesToShow) * pagesToShow + 1; // Tính trang bắt đầu
+  const endPage = Math.min(startPage + pagesToShow - 1, totalPages); // Tính trang kết thúc
 
   const displayItems = posts.slice(
     (currentPage - 1) * itemsPerPage,
@@ -141,13 +150,15 @@ const handleFilterArea = async (minArea, maxArea) => {
               <div key={post._id} className="post-item">
                 <div>
                   <div className="main-image">
-                    <img
-                      src={currentImages[post._id] || post.images[0]} // Sử dụng ảnh lớn của từng bài đăng
-                      alt="Main"
-                      width="300"
-                      height="300"
-                      style={{ margin: '10px' }}
-                    />
+                    <a href='/bai-viet'>
+                      <img
+                        src={currentImages[post._id] || post.images[0]} // Sử dụng ảnh lớn của từng bài đăng
+                        alt="Main"
+                        width="300"
+                        height="300"
+                        style={{ margin: '10px' }}
+                      />
+                    </a>
                   </div>
                   <div
                     className="thumbnail-images"
@@ -175,17 +186,19 @@ const handleFilterArea = async (minArea, maxArea) => {
                   </div>
                 </div>
                 <p className="address">
-                  <strong>Địa chỉ:</strong> {post.address},{post.district},
-                  {post.province}
+                  <strong style={{ fontWeight: '750' }}>Địa chỉ:</strong>{' '}
+                  {post.address},{post.district},{post.province}
                 </p>
                 <p className="area">
-                  <strong>Diện tích:</strong> {post.area} m²
+                  <strong style={{ fontWeight: '750' }}>Diện tích:</strong>{' '}
+                  {post.area} m²
                 </p>
                 <p className="price">
-                  <strong>Giá:</strong> {post.price} triệu/tháng
+                  <strong style={{ fontWeight: '750' }}>Giá:</strong>{' '}
+                  {post.price} triệu/tháng
                 </p>
-                <p style={{ fontWeight: '750' }}>Thông tin mô tả</p>
-                <h3>{post.description}</h3>
+                {/* <p style={{ fontWeight: '750' }}>Thông tin mô tả</p>
+                <h3>{post.description}</h3> */}
 
                 <button className="phone">
                   <div className="icon-phone">
@@ -209,28 +222,28 @@ const handleFilterArea = async (minArea, maxArea) => {
                   <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
               </li>
-              {[...Array(Math.ceil(posts.length / itemsPerPage))].map(
-                (_, index) => (
-                  <li
-                    key={index}
-                    className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+              {/* Các nút trang */}
+              {Array.from(
+                { length: endPage - startPage + 1 },
+                (_, index) => startPage + index
+              ).map((page) => (
+                <li
+                  key={page}
+                  className={`page-item ${currentPage === page ? 'active' : ''}`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => handlePageChange(page)}
                   >
-                    <button
-                      className="page-link"
-                      onClick={() => handlePageChange(index + 1)}
-                    >
-                      {index + 1}
-                    </button>
-                  </li>
-                )
-              )}
+                    {page}
+                  </button>
+                </li>
+              ))}
               <li className="page-item">
                 <button
                   className="page-link"
                   onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={
-                    currentPage === Math.ceil(posts.length / itemsPerPage)
-                  }
+                  disabled={currentPage === totalPages}
                 >
                   <FontAwesomeIcon icon={faAngleRight} />
                 </button>

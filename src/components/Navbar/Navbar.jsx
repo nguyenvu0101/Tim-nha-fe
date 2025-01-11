@@ -10,8 +10,10 @@ const Navbar = () => {
   const [userEmail, setUserEmail] = useState(''); // Email người dùng
   const [showModal, setShowModal] = useState(false); // Trạng thái để hiển thị modal
 
+  const id = localStorage.getItem('id')
   // Hàm hiển thị modal
   const handleLogoutClick = () => {
+    
     setShowModal(true);
   };
 
@@ -30,7 +32,7 @@ const Navbar = () => {
     localStorage.removeItem('id');
     setShowModal(false);
   };
-
+  
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
     const storedEmail = localStorage.getItem('email');
@@ -61,12 +63,13 @@ const Navbar = () => {
 
   // Xử lý đổi mật khẩu
 
+
   return (
     <nav className="header">
       <div className="header-left">
         {/* Ô Trang chủ */}
         <h1 className="home-btn">
-          <a href="http://localhost:3000/">Trang Chủ</a>
+          <a href={`http://localhost:3000/home/${id}`}>Trang Chủ</a>
         </h1>
 
         {/* Dropdown Tìm Tỉnh/Thành Phố */}
@@ -103,7 +106,9 @@ const Navbar = () => {
       <div className="header-right">
         <>
           {/* Hiển thị tên người dùng */}
-          <p className="user-name">Xin chào {userName}</p>
+          <p className="user-name">
+            <a href={`/information/${id}`}>Xin chào {userName}</a>
+          </p>
 
           {/* Nút Đăng Xuất */}
           <button className="nav-btn" onClick={handleLogoutClick}>

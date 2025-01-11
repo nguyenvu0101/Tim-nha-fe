@@ -1,4 +1,4 @@
-.modal-overlay-1 {
+.xoa-bai {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +11,7 @@
     z-index: 1000;
 }
 
-.modal-1 {
+.xoa-bai-dang {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -20,13 +20,13 @@
 }
 
 /* Các nút trong modal */
-.modal-buttons-1 {
+.dong-y {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
 }
 
-.modal-buttons-1 button {
+.dong-y button {
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -34,21 +34,22 @@
     border-radius: 4px;
 }
 
-.modal-buttons-1 button:hover {
+.dong-y button:hover {
     background-color: #f0f0f0;
 }
 
 /* Nút Đồng ý */
-.modal-buttons-1 button:nth-child(1) {
+.dong-y button:nth-child(1) {
     background-color: #4caf50;
     color: white;
 }
 
 /* Nút Hủy */
-.modal-buttons-1 button:nth-child(2) {
+.dong-y button:nth-child(2) {
     background-color: #f44336;
     color: white;
 }
-.modal-buttons-1 a {
+
+.dong-y a {
     text-decoration: none;
 }

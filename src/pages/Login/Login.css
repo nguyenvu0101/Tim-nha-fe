@@ -51,7 +51,13 @@ h2 {
 .btn-login:hover {
   background-color: #45a049;
 }
-.register-link a{
+.register-link p{
   color: #0a19e8;
   text-decoration: none;
+}
+.register-link a{
+  text-decoration: none;
+}
+.register-link p:hover{
+  color: #5edc99;
 }
