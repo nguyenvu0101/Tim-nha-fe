@@ -1,0 +1,193 @@
+.form-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+input,
+select,
+textarea {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-container label {
+    font-weight: 500;
+}
+
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.preview-images img {
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.province {
+    border: 1px solid black;
+    margin-bottom: 2px;
+}
+
+.province label {
+    margin-right: 5px;
+}
+
+.district {
+    border: 1px solid black;
+    margin-bottom: 2px;
+}
+
+.district label {
+    margin-right: 25px;
+}
+
+.address {
+    border: 1px solid black;
+    margin-bottom: 2px;
+}
+
+.address label {
+    margin-right: 65px;
+}
+
+.description {
+    border: 1px solid black;
+    margin-bottom: 2px;
+    position: relative;
+}
+
+.description label {
+    margin-right: 67px;
+    position: absolute;
+    margin-top: 20px;
+
+}
+
+.description textarea {
+    margin-left: 115px;
+    width: 70%;
+    height: 200px;
+    white-space: pre-line;
+}
+
+.area {
+    border: 1px solid black;
+    margin-bottom: 2px;
+}
+
+.area label {
+    margin-right: 12px;
+}
+
+.price {
+    border: 1px solid black;
+    margin-bottom: 2px;
+}
+
+.price label {
+    margin-right: 42px;
+}
+
+.numBedrooms {
+    border: 1px solid black;
+    margin-bottom: 2px;
+}
+
+.numBedrooms label {
+    margin-right: 10px;
+}
+
+.numBathrooms {
+    border: 1px solid black;
+    margin-bottom: 2px;
+}
+
+.numBathrooms label {
+    margin-right: 10px;
+}
+
+.noi-bat {
+    border: 1px solid black;
+    margin-bottom: 2px;
+
+}
+
+.noi-bat .tieu-de label {
+
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+.noi-bat .cac-tien-ich {
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.noi-bat input {
+    margin-right: 10px;
+}
+
+.img-upload {
+    border: 1px solid black;
+    margin-bottom: 2px;
+}
+
+.img-upload label {
+    margin-right: 10px;
+}
+
+.img-upload input {
+    width: 50%;
+}
+
+.form-container .submit {
+    font-size: 20px;
+    margin-top: 10px;
+}
+.luu-huy {
+    display: flex;
+}
+.luu-huy button{
+    margin-top: 10px;
+    width: 100px;
+    height: 50px;
+    margin-right: 50px;
+
+}
+.luu-huy .huy-edit{
+    position: relative;
+    background-color: #4CAF50;
+    margin-top: 10px;
+    width: 100px;
+    height: 50px;
+    margin-right: 50px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.luu-huy .huy-edit a{
+    position: absolute;
+   margin-left: 33px;
+   margin-top: 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+.luu-huy .huy-edit:hover{
+    background-color: #45a049;
+}
+.luu-huy .huy-edit a:hover{
+    color: white;
+}

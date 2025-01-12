@@ -150,7 +150,7 @@ const PostList = () => {
               <div key={post._id} className="post-item">
                 <div>
                   <div className="main-image">
-                    <a href='/bai-viet'>
+                    <a href={`/view-post/${post._id}`}>
                       <img
                         src={currentImages[post._id] || post.images[0]} // Sử dụng ảnh lớn của từng bài đăng
                         alt="Main"

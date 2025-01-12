@@ -62,7 +62,7 @@
 }
 .user-info p{
     font-size: 20px;
-        font-weight: 400;
+    font-weight: 400;
 }
 .posts-list ul {
     position: relative;
@@ -174,4 +174,128 @@
 
 .message.error {
     color: red;
+}
+.user-info {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', sans-serif;
+}
+
+.user-info h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid #2575fc;
+    padding-bottom: 10px;
+}
+
+.user-info p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.user-info p strong {
+    color: #2575fc;
+}
+
+.user-info p:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+.posts-list {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', sans-serif;
+}
+
+.posts-list h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid #2575fc;
+    padding-bottom: 10px;
+}
+
+.posts-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bai-post {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.3s ease;
+}
+
+.bai-post:last-child {
+    border-bottom: none;
+}
+
+.bai-post:hover {
+    background-color: #f0f4f8;
+}
+
+.bai-post h4 {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+}
+
+.sua-xoa {
+    display: flex;
+    gap: 10px;
+}
+
+.sua-xoa button {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sua-bai-viet {
+    background-color: #2575fc;
+    color: #fff;
+}
+
+.sua-bai-viet:hover {
+    background-color: #1a5ccd;
+    transform: scale(1.05);
+}
+
+.xoa-bai-viet {
+    background-color: #f44336;
+    color: #fff;
+}
+
+.xoa-bai-viet:hover {
+    background-color: #d32f2f;
+    transform: scale(1.05);
+}
+.sua-bai-viet .edit-post{
+    text-decoration: none;
+    color: white;
 }

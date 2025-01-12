@@ -3,6 +3,7 @@ import axios from 'axios';
 import './InformationUser.css';
 import { useNavigate } from 'react-router-dom';
 import DeletePost from '../DeletePost/DeletePost';
+import EditPost from '../EditPost/EditPost';
 const InformationUser = () => {
   const [selectedSection, setSelectedSection] = useState('userInfo'); // Lưu trạng thái của section
   const [userInfo, setUserInfo] = useState({}); // Lưu thông tin người dùng
@@ -13,11 +14,16 @@ const InformationUser = () => {
   const [confirmPassword, setConfirmPassword] = useState(''); // Xác nhận mật khẩu
   const [message, setMessage] = useState(''); // Thông báo
   const [show, setShow] = useState(false); // Trạng thái để hiển thị modal
+  const [deletepost, setDeletePost] = useState('');
+  
+
   const navigate = useNavigate();
   const id = localStorage.getItem('id');
   const token = localStorage.getItem('token');
-  const handleLogoutClick = () => {
+  const handleDeleteClick = (postid) => {
     setShow(true);
+    setDeletePost(postid);
+    console.log(postid);
   };
 
   // Hàm đóng modal
@@ -26,10 +32,36 @@ const InformationUser = () => {
   };
 
   // Hàm xử lý xác nhận xoá
-  const handleDeleteConfirm = () => {
-    console.log('Đã xóa');
-    setShow(false);
+  const handleDeleteConfirm = async (id, idpost) => {
+    try {
+      // Gọi API để xóa bài viết
+      const response = await axios.delete(
+        `http://localhost:3003/post/delete/${id}/${idpost}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('Đã xóa bài viết');
+        // Cập nhật lại danh sách bài viết sau khi xóa
+        setPosts((prevPosts) =>
+          prevPosts.filter((post) => post._id !== idpost)
+        );
+      } else {
+        console.error('Không thể xóa bài viết');
+      }
+    } catch (error) {
+      console.error('Lỗi khi gọi API xóa:', error);
+    } finally {
+      // Đóng modal sau khi hoàn tất
+      setShow(false);
+    }
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,7 +72,7 @@ const InformationUser = () => {
           'http://localhost:3003/post/list'
         );
         setPosts(postsResponse.data); // Lưu bài viết vào state
-        console.log(postsResponse.data); // Kiểm tra dữ liệu bài viết
+        console.log(postsResponse.data); 
         // Lấy thông tin người dùng
         console.log(id); // Kiểm tra dữ liệu bài viết
         const userResponse = await axios.get(
@@ -102,6 +134,7 @@ const InformationUser = () => {
     }
   };
 
+
   return (
     <div className="information-user-container">
       <div className="left-section">
@@ -147,25 +180,35 @@ const InformationUser = () => {
             <h3>Danh Sách Bài Đăng</h3>
             <ul>
               {userPosts.map((post, index) => (
-                <li className="bai-post" key={post.id}>
+                <li className="bai-post" key={post._id}>
                   <div>
                     <h4>
                       {index + 1}. {post.address}
                     </h4>
                   </div>
                   <div className="sua-xoa">
-                    <button className="sua-bai-viet">Sửa</button>
+                    <>
+                      <button className="sua-bai-viet">
+                        <a
+                          className="edit-post"
+                          href={`http://localhost:3000/edit-post/${post._id}`}
+                        >
+                          Sửa
+                        </a>
+                      </button>
+                    </>
+
                     <>
                       <button
                         className="xoa-bai-viet"
-                        onClick={handleLogoutClick}
+                        onClick={() => handleDeleteClick(post._id)}
                       >
                         Xóa
                       </button>
                       <DeletePost
                         showmodal={show}
                         Close={closeModal}
-                        Confirm={handleDeleteConfirm}
+                        Confirm={() => handleDeleteConfirm(id, post._id)}
                       />
                     </>
                   </div>

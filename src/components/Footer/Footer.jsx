@@ -15,10 +15,10 @@ function Footer() {
         <div className="footer-section-1">
           <h3>Liên hệ</h3>
           <p>
-            <strong>Address: </strong> 123 Main Street, City, Country
+            <strong>Address: </strong> Nam Dinh City
           </p>
           <p>
-            <strong>Phone: </strong> +123 456 789
+            <strong>Phone: </strong> +84 358387662
           </p>
           <p>
             <strong>Email: </strong> info@timnhatro.com
@@ -26,7 +26,7 @@ function Footer() {
         </div>
 
         <div className="footer-section-1">
-          <h3>Follow Us</h3>
+          <h3>Follow</h3>
           <ul className="social-links-1">
             <li>
               <FontAwesomeIcon icon={faFacebook} />
@@ -83,7 +83,7 @@ function Footer() {
         </div>
       </div>
       <div className="footer-bottom-1">
-        <p>&copy; 2025 TIMNHATRO . ALL RIGHTS RESERVED</p>
+        <p>&copy; 2025 TIMNHATRO . NGUYEN VAN VU</p>
       </div>
     </div>
   );

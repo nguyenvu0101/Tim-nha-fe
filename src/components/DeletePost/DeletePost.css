@@ -5,6 +5,7 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    opacity: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,11 +13,12 @@
 }
 
 .xoa-bai-dang {
-    background-color: white;
+    background-color: rgb(223, 218, 218);
     padding: 20px;
     border-radius: 8px;
     width: 300px;
     text-align: center;
+    opacity: 100%;
 }
 
 /* Các nút trong modal */
@@ -24,6 +26,7 @@
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
+    opacity: 90%;
 }
 
 .dong-y button {
@@ -52,4 +55,5 @@
 
 .dong-y a {
     text-decoration: none;
+    color: #f0f0f0;
 }
