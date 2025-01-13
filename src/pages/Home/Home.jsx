@@ -5,7 +5,7 @@ import PostList from '../../components/PostList/PostList';
 function Home() {
   return (
     <Layout_Home>
-      <PostList />
+      {/* <PostList /> */}
     </Layout_Home>
   );
 }

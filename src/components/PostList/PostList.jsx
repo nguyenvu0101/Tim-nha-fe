@@ -7,7 +7,7 @@ import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
-const PostList = () => {
+const PostList = ({ province, district }) => {
   const [posts, setPosts] = useState([]); // Lưu trữ dữ liệu từ API
   const [loading, setLoading] = useState(true); // Trạng thái loading
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
@@ -16,6 +16,8 @@ const PostList = () => {
   const [selectedProvince, setSelectedProvince] = useState(''); // Tỉnh được chọn
   const [selectedDistrict, setSelectedDistrict] = useState(''); // Huyện được chọn
 
+  console.log(district);
+  console.log(province);
   const priceRanges = [
     { label: 'Dưới 1 triệu', min: 0, max: 1 },
     { label: '1 - 3 triệu', min: 1, max: 3 },
@@ -69,20 +71,44 @@ const PostList = () => {
   };
   useEffect(() => {
     const fetchPosts = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
-        const response = await axios.get('http://localhost:3003/post/list');
-        setPosts(response.data); // Lưu dữ liệu vào state
+        let params = {};
+
+        // Thêm giá trị vào params nếu có province hoặc district
+        if (province) {
+          params.province = province;
+        }
+
+        if (district) {
+          params.district = district;
+        }
+
+        // Nếu không có province và district, gọi API tất cả các bài đăng
+        if (!province && !district) {
+          const response = await axios.get('http://localhost:3003/post/list');
+          setPosts(response.data);
+        } else {
+          const response = await axios.get(
+            'http://localhost:3003/post/filter-location-post',
+            {
+              params,
+            }
+          );
+          setPosts(response.data); // Cập nhật bài đăng
+          console.log('đã nhận được bài đăng');
+          console.log(response.data);
+         
+        }
       } catch (error) {
         console.error('Lỗi khi gọi API:', error.message);
       } finally {
-        setLoading(false); // Dừng trạng thái loading
+        setLoading(false);
       }
     };
 
-    fetchPosts(); // Gọi hàm fetchPosts khi component mount
-  }, [selectedProvince, selectedDistrict]);
-
+    fetchPosts(); // Gọi hàm khi province hoặc district thay đổi
+  }, [province, district]);
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -208,14 +234,12 @@ const PostList = () => {
                 </button>
               </div>
             ))}
-          </div>
-        )}
-        <div className="paginate">
+              <div className="paginate-post">
           <nav>
-            <ul className="pagination">
-              <li className="page-item">
+            <ul className="pagination-post">
+              <li className="page-item-post">
                 <button
-                  className="page-link"
+                  className="page-link-post"
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
                 >
@@ -229,19 +253,19 @@ const PostList = () => {
               ).map((page) => (
                 <li
                   key={page}
-                  className={`page-item ${currentPage === page ? 'active' : ''}`}
+                  className={`page-item-post ${currentPage === page ? 'active' : ''}`}
                 >
                   <button
-                    className="page-link"
+                    className="page-link-post"
                     onClick={() => handlePageChange(page)}
                   >
                     {page}
                   </button>
                 </li>
               ))}
-              <li className="page-item">
+              <li className="page-item-post">
                 <button
-                  className="page-link"
+                  className="page-link-post"
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
                 >
@@ -251,6 +275,10 @@ const PostList = () => {
             </ul>
           </nav>
         </div>
+            </div>
+            
+        )}
+        
       </div>
     </div>
   );

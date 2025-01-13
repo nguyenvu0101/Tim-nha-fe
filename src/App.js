@@ -10,16 +10,18 @@ import EditPost from './components/EditPost/EditPost.jsx';
 import PostList from './components/PostList/PostList.jsx'
 import ViewPost from './components/ViewPost/ViewPost.jsx'
 import InformationUser from './components/InformationUser/InformationUser.jsx';
+import AdminDashboard from './Admin/Admin.jsx';
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
+          <Route path="/admin/:id" element={<AdminDashboard />} />
           <Route path="/view-post/:postid" element={<ViewPost />} />
           <Route path="/edit-post/:postid" element={<EditPost />} />
           <Route path="/information/:id" element={<InformationUser />} />
           <Route path="/post-list" element={<PostList />} />
-          <Route path="/post" element={<Post />} />
+          <Route path="/post/:id" element={<Post />} />
           <Route path="/home/:id" element={<HomeUser />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

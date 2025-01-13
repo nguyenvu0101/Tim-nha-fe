@@ -23,7 +23,7 @@
 .view-main-image img{
    border-radius: 10px;
    max-width: 100%;
-   height: auto;
+   height: 400px;
 }
 .view-thumbnail-images{
     margin-left: 60px;
@@ -51,6 +51,12 @@
         font-size: 15px;
         font-weight: 700;
         opacity: 80%;
+}
+.view-description pre{
+    font-size: 15px;
+        font-weight: 700;
+        font-family: sans-serif;
+        margin-top: 20px;
 }
 .chi-tiet-phong{
     margin-left: 60px;
@@ -88,6 +94,9 @@ font-size: 15px;
 }
 .view-cac-tien-ich{
     display: flex;
+}
+.view-cac-tien-ich input{
+    margin-right: 7px;
 }
 .view-cac-tien-ich .view-1, .view-2{
     margin-right: 70px;

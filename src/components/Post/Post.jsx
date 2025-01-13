@@ -10,6 +10,7 @@ const Post = () => {
   const [districts, setDistricts] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     province: '',
     district: '',
@@ -80,6 +81,7 @@ const Post = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
     const userId = localStorage.getItem('id');
     // Dữ liệu cần gửi
     const dataToSubmit = {
@@ -92,15 +94,15 @@ const Post = () => {
 
     // In ra chuỗi JSON để kiểm tra
     console.log('Đã chuyển dữ liệu sang json');
-
     try {
       // Gửi dữ liệu đến backend bằng async/await
       const response = await axios.post(
-        'http://localhost:3003/post',
+        `http://localhost:3003/post/${userId}`,
         jsonData,
         {
           headers: {
-            'Content-Type': 'application/json', // Đảm bảo rằng server nhận dữ liệu dạng JSON
+            authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
         }
       );
@@ -156,7 +158,7 @@ const Post = () => {
       <h2>Đăng Bài</h2>
       <form onSubmit={handleSubmit}>
         <div className="province">
-          <label>Tỉnh/Thành Phố:</label>
+          <label>Tỉnh/Thành Phố</label>
           <select
             name="province"
             onChange={(handleInputChange, handleProvinceChange)}
@@ -171,7 +173,7 @@ const Post = () => {
         </div>
 
         <div className="district">
-          <label>Quận/Huyện:</label>
+          <label>Quận/Huyện</label>
           <select
             name="district"
             onChange={(handleInputChange, handleDistrictChange)}
@@ -186,19 +188,20 @@ const Post = () => {
         </div>
 
         <div className="address">
-          <label>Địa chỉ:</label>
+          <label>Địa chỉ</label>
           <input
             type="text"
             name="address"
             value={formData.address}
             onChange={handleInputChange}
-            placeholder="Nhập địa chỉ cụ thể"
+            placeholder="Nhập địa chỉ cụ thể , ví dụ nhà A , ngõ/ngách B , xã/phường C"
           />
         </div>
 
         <div className="description">
-          <label>Mô Tả:</label>
+          <label>Mô Tả</label>
           <textarea
+            className='text-area'
             name="description"
             value={formData.description}
             onChange={handleInputChange}
@@ -207,7 +210,7 @@ const Post = () => {
         </div>
 
         <div className="area">
-          <label>Diện Tích (m²):</label>
+          <label>Diện Tích (m²)</label>
           <input
             type="number"
             name="area"
@@ -218,9 +221,9 @@ const Post = () => {
         </div>
 
         <div className="price">
-          <label>Giá (VND):</label>
+          <label>Giá (triệu)</label>
           <input
-            type="number"
+            type="text"
             name="price"
             value={formData.price}
             onChange={handleInputChange}
@@ -229,9 +232,9 @@ const Post = () => {
         </div>
 
         <div className="numBedrooms">
-          <label>Số Phòng Ngủ:</label>
+          <label>Số Phòng Ngủ</label>
           <input
-            type="number"
+            type="text"
             name="numBedrooms"
             value={formData.numBedrooms}
             onChange={handleInputChange}
@@ -240,9 +243,9 @@ const Post = () => {
         </div>
 
         <div className="numBathrooms">
-          <label>Số Phòng Tắm:</label>
+          <label>Số Phòng Tắm</label>
           <input
-            type="number"
+            type="text"
             name="numBathrooms"
             value={formData.numBathrooms}
             onChange={handleInputChange}

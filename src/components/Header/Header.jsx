@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './Header.css';
 import axios from 'axios';
+import PostList from '../PostList/PostList';
 
 const Header = () => {
   const [provinces, setProvinces] = useState([]); // Danh sách tỉnh
   const [districts, setDistricts] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [province, setProvince] = useState('');
+  const [district, setDistrict] = useState('');
   useEffect(() => {
     axios
       .get('https://provinces.open-api.vn/api/?depth=2')
@@ -24,7 +27,9 @@ const Header = () => {
       setDistricts([]); // Xóa danh sách huyện nếu không có tỉnh nào được chọn
     }
   }, [selectedProvince, provinces]);
-
+   
+  
+    
   const handleProvinceChange = (event) => {
     const provinceId = event.target.value;
 
@@ -35,8 +40,11 @@ const Header = () => {
 
     if (selectedProvinceData) {
       setSelectedProvince(provinceId); // Lưu ID vào state
+      setProvince(selectedProvinceData.name);
       setSelectedDistrict(''); // Reset huyện khi tỉnh thay đổi
+      setDistrict(''); // Reset district về null khi province thay đổi
     }
+   
   };
 
   const handleDistrictChange = (event) => {
@@ -49,10 +57,13 @@ const Header = () => {
 
     if (selectedDistrictData) {
       setSelectedDistrict(districtId); // Lưu ID vào state
+      setDistrict(selectedDistrictData.name);
+      
     }
   };
-
+  
   return (
+    <>
     <header className="header">
       <div className="header-left">
         {/* Ô Trang chủ */}
@@ -80,6 +91,7 @@ const Header = () => {
           disabled={!selectedProvince}
           value={selectedDistrict || ''}
           onChange={handleDistrictChange}
+          
         >
           <option value="">Chọn Quận / Huyện</option>
           {districts.map((district) => (
@@ -116,7 +128,15 @@ const Header = () => {
           <a href="/login">Đăng Tin</a>
         </button>
       </div>
-    </header>
+      </header>
+      <div className='post-list-header'>
+        <PostList
+        province={province}
+        district={district}
+      />
+      </div>
+        
+    </>
   );
 };
 

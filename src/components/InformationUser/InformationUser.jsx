@@ -13,9 +13,9 @@ const InformationUser = () => {
   const [newPassword, setNewPassword] = useState(''); // Mật khẩu mới
   const [confirmPassword, setConfirmPassword] = useState(''); // Xác nhận mật khẩu
   const [message, setMessage] = useState(''); // Thông báo
+  const [isAdmin, setIsAdmin] = useState(false); // Trạng thái admin
   const [show, setShow] = useState(false); // Trạng thái để hiển thị modal
   const [deletepost, setDeletePost] = useState('');
-  
 
   const navigate = useNavigate();
   const id = localStorage.getItem('id');
@@ -72,7 +72,7 @@ const InformationUser = () => {
           'http://localhost:3003/post/list'
         );
         setPosts(postsResponse.data); // Lưu bài viết vào state
-        console.log(postsResponse.data); 
+        console.log(postsResponse.data);
         // Lấy thông tin người dùng
         console.log(id); // Kiểm tra dữ liệu bài viết
         const userResponse = await axios.get(
@@ -85,6 +85,7 @@ const InformationUser = () => {
           }
         );
         setUserInfo(userResponse.data);
+        setIsAdmin(userResponse.data.isAdmin);
       } catch (error) {
         console.error('Lỗi khi gọi API:', error.message);
       } finally {
@@ -104,7 +105,9 @@ const InformationUser = () => {
   const handleClick = () => {
     navigate(`/home/${id}`); // Điều hướng đến đường dẫn mong muốn
   };
-
+const handleStatisticsClick = () => {
+  navigate(`/admin/${id}`); // Điều hướng đến trang thống kê
+};
   // Xử lý đổi mật khẩu
   const handleChangePassword = async (e) => {
     e.preventDefault();
@@ -134,7 +137,6 @@ const InformationUser = () => {
     }
   };
 
-
   return (
     <div className="information-user-container">
       <div className="left-section">
@@ -159,6 +161,14 @@ const InformationUser = () => {
         >
           Đổi mật khẩu
         </button>
+        {isAdmin && (
+          <button
+            className="information-user-bt4"
+            onClick={handleStatisticsClick}
+          >
+            Thống Kê
+          </button>
+        )}
       </div>
 
       <div className="right-section">

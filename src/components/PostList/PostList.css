@@ -1,6 +1,6 @@
 .post-list {
-    padding: 20px;
-    padding-bottom: 5px;
+    padding: 30px 20px;
+    margin-bottom: 0;
     margin-bottom: 5px;
     font-family: Arial, sans-serif;
 }
@@ -14,6 +14,7 @@
 .post-item {
     border: 1px solid #ddd;
     border-radius: 5px;
+    margin-bottom: 10px;
     padding: 15px;
     width: 300px;
     background-color: #f9f9f9;
@@ -63,13 +64,7 @@
     padding: 5px;
     float: right;
 }
-.post-list .paginate{
-    margin-left: 80%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    height: 20px;
-    width: auto;
-}
+
 .post-item .main-image{
 
 }
@@ -81,12 +76,17 @@
 .bai-dang  {
     display: flex;
 }
+.bo-loc{
+    padding-bottom: 5px;
+}
 .bo-loc h4{
     font-size: large;
     margin: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
 }
 .filter-buttons .btn {
-    width: 60%;
+    width: 80%;
     text-align: center;
     margin-bottom: 10px;
     color: black;
@@ -98,14 +98,13 @@
 .filter-buttons .btn:active {
     background-color: rgb(45, 44, 42);
 }
-.pagination {
+.pagination-post {
     display: flex;
-    padding-left: 0;
+    padding-right:20px;
     list-style: none;
-
 }
 
-.page-link {
+.page-link-post {
     position: relative;
     display: block;
     padding: 0.5rem 0.75rem;
@@ -115,12 +114,24 @@
     border: 1px solid #dee2e6;
 }
 
-.page-item.active .page-link {
+.page-item-post.active .page-link-post {
     color: #fff;
     background-color: #007bff;
     border-color: #007bff;
 }
-.pagination .page-item{
+.pagination-post .page-item-post{
     padding: 0;
-    margin: 0 1px;
+    margin-right: 1px;
+}
+.paginate-post nav{
+    position: relative;
+}
+.paginate-post{
+    width: max-content;
+    padding: 0;
+    margin-top: 100px;
+    margin-left: 70%
+}
+.posts-list .post .paginate-post button {
+    border-radius: 5px;
 }

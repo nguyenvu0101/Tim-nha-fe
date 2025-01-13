@@ -73,12 +73,7 @@ const ViewPost = () => {
   useEffect(() => {
     // Gọi API lấy thông tin bài đăng
     axios
-      .get(`http://localhost:3003/post/view/${userId}/${postid}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      })
+      .get(`http://localhost:3003/post/view/${postid}`)
       .then((response) => {
         console.log(response.data);
         setEdit(response.data);
@@ -177,7 +172,7 @@ const ViewPost = () => {
           <div className="view-description">
             <label>Mô Tả</label>
             <br></br>
-            {edit.description}
+            <pre>{edit.description}</pre>           
           </div>
 
           <div className="view-noi-bat">

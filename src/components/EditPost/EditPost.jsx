@@ -65,6 +65,7 @@ const EditPost = () => {
   const { postid } = useParams();
   // Fetch dữ liệu bài đăng để chỉnh sửa
   console.log(postid);
+  console.log(userId);
   // Cập nhật dữ liệu form
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -109,7 +110,7 @@ const EditPost = () => {
       images: updatedImages,
     });
   };
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -147,21 +148,25 @@ const EditPost = () => {
     }
   };
   useEffect(() => {
-    // Gọi API lấy thông tin bài đăng
-    axios
-      .get(`http://localhost:3003/post/view/${userId}/${postid}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
+    const fetchPost = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3003/post/view/${userId}/${postid}`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
         console.log(response.data);
-        setEdit(response.data);
-      })
-      .catch((error) => {
+        setEdit(response.data); // Cập nhật state với dữ liệu bài đăng
+      } catch (error) {
         console.error('Lỗi khi lấy thông tin bài đăng:', error);
-      });
+      }
+    };
+
+    fetchPost(); // Gọi hàm fetchPost
   }, [postid]); // Khi postid thay đổi, sẽ gọi lại API
 
   useEffect(() => {
@@ -202,10 +207,10 @@ const EditPost = () => {
 
   return (
     <div className="form-container">
-      <h2>Đăng Bài</h2>
+      <h2>Sửa Bài Đăng</h2>
       <form onSubmit={handleSubmit}>
         <div className="province">
-          <label>Tỉnh/Thành Phố:</label>
+          <label>Tỉnh/Thành Phố</label>
           <select
             name="province"
             onChange={(handleInputChange, handleProvinceChange)}
@@ -220,7 +225,7 @@ const EditPost = () => {
         </div>
 
         <div className="district">
-          <label>Quận/Huyện:</label>
+          <label>Quận/Huyện</label>
           <select
             name="district"
             onChange={(handleInputChange, handleDistrictChange)}
@@ -235,7 +240,7 @@ const EditPost = () => {
         </div>
 
         <div className="address">
-          <label>Địa chỉ:</label>
+          <label>Địa chỉ</label>
           <input
             type="text"
             name="address"
@@ -246,7 +251,7 @@ const EditPost = () => {
         </div>
 
         <div className="description">
-          <label>Mô Tả:</label>
+          <label>Mô Tả</label>
           <textarea
             name="description"
             value={formData.description}
@@ -256,10 +261,10 @@ const EditPost = () => {
         </div>
 
         <div className="area">
-          <label>Diện Tích (m²):</label>
+          <label>Diện Tích (m²)</label>
           <input
             min="0"
-            type="number"
+            type="text"
             name="area"
             value={formData.area}
             onChange={handleInputChange}
@@ -268,7 +273,7 @@ const EditPost = () => {
         </div>
 
         <div className="price">
-          <label>Giá (VND):</label>
+          <label>Giá (triệu)</label>
           <input
             min="0"
             type="text"
@@ -280,10 +285,10 @@ const EditPost = () => {
         </div>
 
         <div className="numBedrooms">
-          <label>Số Phòng Ngủ:</label>
+          <label>Số Phòng Ngủ</label>
           <input
             min="0"
-            type="number"
+            type="text"
             name="numBedrooms"
             value={formData.numBedrooms}
             onChange={handleInputChange}
@@ -292,10 +297,10 @@ const EditPost = () => {
         </div>
 
         <div className="numBathrooms">
-          <label>Số Phòng Tắm:</label>
+          <label>Số Phòng Tắm</label>
           <input
             min="0"
-            type="number"
+            type="text"
             name="numBathrooms"
             value={formData.numBathrooms}
             onChange={handleInputChange}

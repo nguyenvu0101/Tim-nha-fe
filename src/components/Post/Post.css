@@ -129,3 +129,6 @@ button:hover {
     font-size: 20px;
     margin-top: 10px;
 }
+.address input{
+ width: 70%;
+}
