@@ -44,7 +44,7 @@ function Login() {
   return (
     <div className="login-wrapper">
       <div className="login-container">
-        <h2>Login</h2>
+        <h2>Đăng Nhập</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="username">Tài khoản</label>
@@ -79,7 +79,7 @@ function Login() {
           {errorMessage && <div className="error-message">{errorMessage}</div>}
 
           <button type="submit" className="btn-login">
-            Login
+            Đăng Nhập
           </button>
         </form>
       </div>

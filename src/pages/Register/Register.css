@@ -1,11 +1,19 @@
 /* src/components/Register.css */
 .register-wrapper {
-  position: relative;
-  height: 100vh;
-  background-color: #f4f4f4;
   display: flex;
-  justify-content: center;
-  align-items: center;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Chiều cao tối thiểu là toàn bộ màn hình */
+    background-image: url('../../assets/images/login.png');
+    /* Đường dẫn tương đối đến ảnh */
+    background-size: cover;
+    /* Đảm bảo hình nền bao phủ toàn bộ */
+    background-position: center;
+    /* Canh giữa hình nền */
+    background-repeat: no-repeat;
+    /* Không lặp lại hình nền */
+    font-family: Arial, sans-serif;
 }
 
 .register-container {

@@ -14,7 +14,7 @@ textarea {
 }
 
 .form-container label {
-    font-weight: 500;
+    font-weight: 700;
 }
 
 button {
@@ -133,7 +133,7 @@ button:hover {
 .noi-bat .cac-tien-ich {
 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .noi-bat input {

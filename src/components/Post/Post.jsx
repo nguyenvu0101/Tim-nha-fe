@@ -33,7 +33,7 @@ const Post = () => {
     },
     images: [], // Thêm trường để lưu ảnh
   });
-
+  const userId = localStorage.getItem('id');
   // Cập nhật dữ liệu form
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -201,7 +201,7 @@ const Post = () => {
         <div className="description">
           <label>Mô Tả</label>
           <textarea
-            className='text-area'
+            className="text-area"
             name="description"
             value={formData.description}
             onChange={handleInputChange}
@@ -403,9 +403,16 @@ const Post = () => {
           </div>
         </div>
 
-        <button className="submit" type="submit">
-          Đăng Bài
-        </button>
+        <div className="luu-huy">
+          <div className="save-edit">
+            <button className="submit" type="submit">
+              Đăng
+            </button>
+          </div>
+          <div className="huy-edit" onClick={() => navigate(`/home/${userId}`)}>
+            <a>Huỷ</a>
+          </div>
+        </div>
       </form>
     </div>
   );
