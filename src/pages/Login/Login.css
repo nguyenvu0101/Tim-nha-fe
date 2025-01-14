@@ -1,4 +1,20 @@
 /* src/components/Login.css */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* Chiều cao tối thiểu là toàn bộ màn hình */
+  background-image: url('../../assets/images/login.png');
+  /* Đường dẫn tương đối đến ảnh */
+  background-size: cover;
+  /* Đảm bảo hình nền bao phủ toàn bộ */
+  background-position: center;
+  /* Canh giữa hình nền */
+  background-repeat: no-repeat;
+  /* Không lặp lại hình nền */
+  font-family: Arial, sans-serif;
+}
 .login-container {
   max-width: 400px;
   margin: 50px auto;
@@ -6,6 +22,7 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #f9f9f9;
+  opacity: 90%;
 }
 
 h2 {
