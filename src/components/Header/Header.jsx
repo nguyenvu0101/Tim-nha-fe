@@ -100,8 +100,8 @@ const Header = () => {
             </option>
           ))}
         </select>
-
-        {/* Ô Input Tìm Kiếm */}
+          <div className='tim-kiem'>
+             {/* Ô Input Tìm Kiếm */}
         <input
           type="text"
           placeholder="Nhập từ khóa tìm kiếm"
@@ -110,6 +110,8 @@ const Header = () => {
 
         {/* Nút Tìm */}
         <button className="search-btn">Tìm</button>
+</div>
+       
       </div>
 
       <div className="header-right">

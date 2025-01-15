@@ -68,7 +68,9 @@
     cursor: pointer;
     font-size: 14px;
 }
-
+.tim-kiem input{
+    margin-right: 10px;
+}
 .search-btn:hover {
     background-color: #218838;
 }

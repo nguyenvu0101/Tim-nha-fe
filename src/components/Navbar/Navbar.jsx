@@ -11,14 +11,21 @@ const Navbar = () => {
   const [userName, setUserName] = useState(''); // Tên người dùng
   const [userEmail, setUserEmail] = useState(''); // Email người dùng
   const [showModal, setShowModal] = useState(false); // Trạng thái để hiển thị modal
- const [province, setProvince] = useState('');
+  const [province, setProvince] = useState('');
   const [district, setDistrict] = useState('');
+  const [inputValue, setInputValue] = useState(''); // Lưu giá trị ô input
+  const [submittedValue, setSubmittedValue] = useState(null); // Lưu giá trị đã gửi
 
-  const id = localStorage.getItem('id')
+  const id = localStorage.getItem('id');
+const handleInputChange = (e) => {
+  setInputValue(e.target.value.toLowerCase()); // Cập nhật giá trị khi nhập
+};
 
+const handleSubmit = () => {
+  setSubmittedValue(inputValue); // Gửi giá trị hiện tại
+};
   // Hàm hiển thị modal
   const handleLogoutClick = () => {
-    
     setShowModal(true);
   };
 
@@ -37,7 +44,7 @@ const Navbar = () => {
     localStorage.removeItem('id');
     setShowModal(false);
   };
-  
+
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
     const storedEmail = localStorage.getItem('email');
@@ -57,52 +64,47 @@ const Navbar = () => {
   }, []);
   // Xử lý thay đổi tỉnh/thành phố
   useEffect(() => {
-      if (selectedProvince) {
-        const selectedProvinceData = provinces.find(
-          (province) => province.code === Number(selectedProvince)
-        );
-        setDistricts(selectedProvinceData?.districts || []); // Cập nhật danh sách huyện
-      } else {
-        setDistricts([]); // Xóa danh sách huyện nếu không có tỉnh nào được chọn
-      }
-    }, [selectedProvince, provinces]);
-     
-    
-      
-    const handleProvinceChange = (event) => {
-      const provinceId = event.target.value;
-  
-      // Lấy thông tin tỉnh dựa trên provinceId
+    if (selectedProvince) {
       const selectedProvinceData = provinces.find(
-        (province) => province.code === Number(provinceId)
+        (province) => province.code === Number(selectedProvince)
       );
-  
-      if (selectedProvinceData) {
-        setSelectedProvince(provinceId); // Lưu ID vào state
-        setProvince(selectedProvinceData.name);
-        setSelectedDistrict(''); // Reset huyện khi tỉnh thay đổi
-        setDistrict(''); // Reset district về null khi province thay đổi
-      }
-     
-    };
-  
-    const handleDistrictChange = (event) => {
-      const districtId = event.target.value;
-  
-      // Lấy thông tin huyện dựa trên districtId
-      const selectedDistrictData = districts.find(
-        (district) => district.code === Number(districtId)
-      );
-  
-      if (selectedDistrictData) {
-        setSelectedDistrict(districtId); // Lưu ID vào state
-        setDistrict(selectedDistrictData.name);
-        
-      }
-    };
+      setDistricts(selectedProvinceData?.districts || []); // Cập nhật danh sách huyện
+    } else {
+      setDistricts([]); // Xóa danh sách huyện nếu không có tỉnh nào được chọn
+    }
+  }, [selectedProvince, provinces]);
+
+  const handleProvinceChange = (event) => {
+    const provinceId = event.target.value;
+
+    // Lấy thông tin tỉnh dựa trên provinceId
+    const selectedProvinceData = provinces.find(
+      (province) => province.code === Number(provinceId)
+    );
+
+    if (selectedProvinceData) {
+      setSelectedProvince(provinceId); // Lưu ID vào state
+      setProvince(selectedProvinceData.name);
+      setSelectedDistrict(''); // Reset huyện khi tỉnh thay đổi
+      setDistrict(''); // Reset district về null khi province thay đổi
+    }
+  };
+
+  const handleDistrictChange = (event) => {
+    const districtId = event.target.value;
+
+    // Lấy thông tin huyện dựa trên districtId
+    const selectedDistrictData = districts.find(
+      (district) => district.code === Number(districtId)
+    );
+
+    if (selectedDistrictData) {
+      setSelectedDistrict(districtId); // Lưu ID vào state
+      setDistrict(selectedDistrictData.name);
+    }
+  };
 
   // Xử lý đổi mật khẩu
-
 
   return (
     <>
@@ -141,16 +143,21 @@ const Navbar = () => {
               </option>
             ))}
           </select>
+          <div className="tim-kiem">
+            {/* Ô Input Tìm Kiếm */}
+            <input
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Nhập từ khóa tìm kiếm"
+              className="search-input"
+            />
 
-          {/* Ô Input Tìm Kiếm */}
-          <input
-            type="text"
-            placeholder="Nhập từ khóa tìm kiếm"
-            className="search-input"
-          />
-
-          {/* Nút Tìm */}
-          <button className="search-btn">Tìm</button>
+            {/* Nút Tìm */}
+            <button className="search-btn" onClick={handleSubmit}>
+              Tìm
+            </button>
+          </div>
         </div>
 
         <div className="header-right">
@@ -178,7 +185,7 @@ const Navbar = () => {
         </div>
       </nav>
       <div className="post-list-header">
-        <PostList province={province} district={district} />
+        <PostList province={province} district={district} keyword={submittedValue} />
       </div>
     </>
   );

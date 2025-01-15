@@ -11,6 +11,8 @@ const ViewPost = () => {
   const [edit, setEdit] = useState({});
   const [currentImages, setCurrentImages] = useState({});
   const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại của phân trang
+  const postsPerPage = 4; // Số bài đăng trên mỗi trang
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = localStorage.getItem('id');
@@ -101,6 +103,16 @@ const ViewPost = () => {
   const handleImageClick = (image) => {
     setCurrentImages(image);
   };
+  // Lấy danh sách bài đăng của trang hiện tại
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber); // Cập nhật trang hiện tại
+  };
+
+  const totalPages = Math.ceil(posts.length / postsPerPage); // Tính số trang
 
   return (
     <div className="form-post-container ">
@@ -172,7 +184,7 @@ const ViewPost = () => {
           <div className="view-description">
             <label>Mô Tả</label>
             <br></br>
-            <pre>{edit.description}</pre>           
+            <pre>{edit.description}</pre>
           </div>
 
           <div className="view-noi-bat">
@@ -273,9 +285,12 @@ const ViewPost = () => {
         </div> */}
         </div>
       </div>
+      <div className='de-xuat'>
+        <p>Có thể bạn quan tâm</p>
+      </div>
 
       <div className="anh-phu">
-        {filteredPosts.map((post) => (
+        {filteredPosts.slice(indexOfFirstPost, indexOfLastPost).map((post) => (
           <div key={post._id} className="post-item-anh-phu">
             <div>
               <div className="main-image-anh-phu">
@@ -285,7 +300,6 @@ const ViewPost = () => {
                     alt="Main"
                     width="400"
                     height="300"
-                    
                   />
                 </a>
               </div>
@@ -306,6 +320,17 @@ const ViewPost = () => {
                       <h3>{post.description}</h3> */}
           </div>
         ))}
+        <div className="pagination-viewpost">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              className={`page-button-viewpost ${currentPage === index + 1 ? 'active' : ''}`}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
