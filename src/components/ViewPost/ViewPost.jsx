@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useContext } from 'react';
 import axios from 'axios';
 import './ViewPost.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { PostContext } from '../../PostContext';
 const ViewPost = () => {
   const [provinces, setProvinces] = useState([]); // Danh sách tỉnh
   const [selectedProvince, setSelectedProvince] = useState(null); // Tỉnh đã chọn
@@ -17,7 +22,8 @@ const ViewPost = () => {
   const navigate = useNavigate();
   const userId = localStorage.getItem('id');
   const token = localStorage.getItem('token');
-
+  const { postStatusMap } = useContext(PostContext); // Sử dụng Context
+  
   const [formData, setFormData] = useState({
     province: '',
     district: '',
@@ -113,9 +119,24 @@ const ViewPost = () => {
   };
 
   const totalPages = Math.ceil(posts.length / postsPerPage); // Tính số trang
-
+  const handleReturn = () => {
+    if (userId) {
+      // Nếu có id, chuyển đến home/id
+      window.location.href = `http://localhost:3000/home/${userId}`;
+    } else {
+      // Nếu không có id, chuyển đến home
+      window.location.href = 'http://localhost:3000/';
+    }
+  };
   return (
     <div className="form-post-container ">
+      <div className="view-post-return" onClick={handleReturn}>
+        <div className="return-left">
+          <FontAwesomeIcon icon={faAngleLeft} />
+        </div>
+
+        <div>Quay lại</div>
+      </div>
       <div className="anh-chinh">
         <div className="anh-chinh-1">
           <div>
@@ -285,13 +306,20 @@ const ViewPost = () => {
         </div> */}
         </div>
       </div>
-      <div className='de-xuat'>
+      <div className="de-xuat">
         <p>Có thể bạn quan tâm</p>
       </div>
 
       <div className="anh-phu">
         {filteredPosts.slice(indexOfFirstPost, indexOfLastPost).map((post) => (
-          <div key={post._id} className="post-item-anh-phu">
+          <div
+            key={post._id}
+            className={`post-item-anh-phu ${postStatusMap[post._id] === 'Đang liên hệ' ? 'overlay' : ''}`}
+          >
+            {/* Hiển thị chữ "Đang liên hệ" */}
+            {postStatusMap[post._id] === 'Đang liên hệ' && (
+              <div className="contacting-label">Đang liên hệ</div>
+            )}
             <div>
               <div className="main-image-anh-phu">
                 <a href={`/view-post/${post._id}`}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import './PostList.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,19 +6,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-
+import { PostContext } from '../../PostContext';
 const PostList = ({ province, district, keyword }) => {
   const [posts, setPosts] = useState([]); // Lưu trữ dữ liệu từ API
   const [loading, setLoading] = useState(true); // Trạng thái loading
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
   const itemsPerPage = 4;
   const [currentImages, setCurrentImages] = useState({}); // Lưu trữ ảnh lớn cho từng bài đăng
-  const [selectedProvince, setSelectedProvince] = useState(''); // Tỉnh được chọn
-  const [selectedDistrict, setSelectedDistrict] = useState(''); // Huyện được chọn
-  const [filteredPosts, setFilteredPosts] = useState([]); // Kết quả tìm kiếm
+  const [revealedPostId, setRevealedPostId] = useState(null); // Lưu trữ ID bài đăng được hiển thị số
+  const { postStatusMap } = useContext(PostContext); // Sử dụng Context
   console.log(district);
   console.log(province);
   console.log(keyword);
+  console.log(postStatusMap);
   const priceRanges = [
     { label: 'Dưới 1 triệu', min: 0, max: 1 },
     { label: '1 - 3 triệu', min: 1, max: 3 },
@@ -38,6 +38,10 @@ const PostList = ({ province, district, keyword }) => {
     { label: 'Trên 70 m²', min: 70, max: Infinity },
   ];
 
+  const handleRevealClick = (postId) => {
+    // Nếu bài đăng đang được hiển thị thì ẩn đi, ngược lại hiển thị
+    setRevealedPostId((prevId) => (prevId === postId ? null : postId));
+  };
   const handleFilterPrice = async (minPrice, maxPrice) => {
     try {
       setLoading(true);
@@ -85,31 +89,53 @@ const PostList = ({ province, district, keyword }) => {
           params.district = district;
         }
 
-        // Nếu không có province và district, gọi API tất cả các bài đăng
-        if (!province && !district) {
-          const response = await axios.get('http://localhost:3003/post/list');
-          setPosts(response.data);
-        } else {
-          const response = await axios.get(
+        // Nếu có province hoặc district, gọi API với các tham số
+        let response;
+
+        if (province || district) {
+          response = await axios.get(
             'http://localhost:3003/post/filter-location-post',
             {
               params,
             }
           );
-          setPosts(response.data); // Cập nhật bài đăng
-          console.log('đã nhận được bài đăng');
-          console.log(response.data);
+        } else {
+          // Nếu không có province và district, gọi API tất cả các bài đăng
+          response = await axios.get('http://localhost:3003/post/list');
         }
-        
+
+        // Kiểm tra nếu không có keyword
+        if (!keyword || keyword.trim() === '') {
+          // Trường hợp không có keyword: hiển thị toàn bộ bài đăng
+          setPosts(response.data);
+          console.log('Hiển thị toàn bộ bài đăng:', response.data);
+        } else {
+          // Trường hợp có keyword: lọc các bài đăng chứa keyword
+          const filteredPosts = response.data.filter((post) => {
+            return (
+              (post.address &&
+                post.address.toLowerCase().includes(keyword.toLowerCase())) ||
+              (post.province &&
+                post.province.toLowerCase().includes(keyword.toLowerCase())) ||
+              (post.district &&
+                post.district.toLowerCase().includes(keyword.toLowerCase()))
+            );
+          });
+
+          // Cập nhật danh sách bài đăng phù hợp
+          setPosts(filteredPosts);
+          console.log('Danh sách bài đăng phù hợp với keyword:', filteredPosts);
+        }
       } catch (error) {
-        console.error('Lỗi khi gọi API:', error.message);
+        console.error('Lỗi khi lấy danh sách bài đăng:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPosts(); // Gọi hàm khi province hoặc district thay đổi
-  }, [province, district]);
+    fetchPosts(); // Gọi hàm khi province, district hoặc keyword thay đổi
+  }, [province, district, keyword]);
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -174,10 +200,26 @@ const PostList = ({ province, district, keyword }) => {
         ) : (
           <div className="posts col-xl-12">
             {displayItems.map((post) => (
-              <div key={post._id} className="post-item">
+              <div
+                key={post._id}
+                className={`post-item ${postStatusMap[post._id] === 'Đang liên hệ' ? 'overlay' : ''}`}
+              >
+                {/* Hiển thị chữ "Đang liên hệ" */}
+                {postStatusMap[post._id] === 'Đang liên hệ' && (
+                  <div className="contacting-label">Đang liên hệ</div>
+                )}
+
                 <div>
                   <div className="main-image">
-                    <a href={`/view-post/${post._id}`}>
+                    <a
+                      href={`http://localhost:3000/view-post/${post._id}`}
+                      style={{
+                        pointerEvents:
+                          postStatusMap[post._id] === 'Đang liên hệ'
+                            ? 'none'
+                            : 'auto',
+                      }}
+                    >
                       <img
                         src={currentImages[post._id] || post.images[0]} // Sử dụng ảnh lớn của từng bài đăng
                         alt="Main"
@@ -212,6 +254,7 @@ const PostList = ({ province, district, keyword }) => {
                     ))}
                   </div>
                 </div>
+
                 <p className="address">
                   <strong style={{ fontWeight: '750' }}>Địa chỉ:</strong>{' '}
                   {post.address},{post.district},{post.province}
@@ -224,14 +267,14 @@ const PostList = ({ province, district, keyword }) => {
                   <strong style={{ fontWeight: '750' }}>Giá:</strong>{' '}
                   {post.price} triệu/tháng
                 </p>
-                {/* <p style={{ fontWeight: '750' }}>Thông tin mô tả</p>
-                <h3>{post.description}</h3> */}
 
                 <button className="phone">
                   <div className="icon-phone">
                     <FontAwesomeIcon icon={faPhone} />
                   </div>
-                  <div>0358387662</div>
+                  <div onClick={() => handleRevealClick(post._id)}>
+                    {revealedPostId === post._id ? post.contact : 'Hiện số'}
+                  </div>
                 </button>
               </div>
             ))}

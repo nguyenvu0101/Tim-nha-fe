@@ -93,13 +93,14 @@ button:hover {
 .numBedrooms label{
     margin-right: 10px;
 }
-.numBathrooms{
+.contact{
         border: 1px solid black;
             margin-bottom: 2px;
 }
-.numBathrooms label{
-    margin-right: 10px;
+.contact label{
+    margin-right: 65px;
 }
+
 .noi-bat{
         border: 1px solid black;
             margin-bottom: 2px;

@@ -10,6 +10,9 @@ const Header = () => {
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [province, setProvince] = useState('');
   const [district, setDistrict] = useState('');
+  const [inputValue, setInputValue] = useState(''); // Lưu giá trị ô input
+    const [submittedValue, setSubmittedValue] = useState(null); // Lưu giá trị đã gửi
+  
   useEffect(() => {
     axios
       .get('https://provinces.open-api.vn/api/?depth=2')
@@ -28,7 +31,13 @@ const Header = () => {
     }
   }, [selectedProvince, provinces]);
    
-  
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value.toLowerCase()); // Cập nhật giá trị khi nhập
+  };
+
+  const handleSubmit = () => {
+    setSubmittedValue(inputValue); // Gửi giá trị hiện tại
+  };
     
   const handleProvinceChange = (event) => {
     const provinceId = event.target.value;
@@ -64,80 +73,82 @@ const Header = () => {
   
   return (
     <>
-    <header className="header">
-      <div className="header-left">
-        {/* Ô Trang chủ */}
-        <h1 className="home-btn">
-          <a href="http://localhost:3000">Trang Chủ</a>
-        </h1>
+      <header className="header">
+        <div className="header-left">
+          {/* Ô Trang chủ */}
+          <h1 className="home-btn">
+            <a href="http://localhost:3000">Trang Chủ</a>
+          </h1>
 
-        {/* Dropdown Tìm Tỉnh/Thành Phố */}
-        <select
-          className="dropdown"
-          onChange={handleProvinceChange}
-          value={selectedProvince || ''}
-        >
-          <option value="">Chọn Tỉnh / Thành Phố</option>
-          {provinces.map((province) => (
-            <option key={province.code} value={province.code}>
-              {province.name}
-            </option>
-          ))}
-        </select>
+          {/* Dropdown Tìm Tỉnh/Thành Phố */}
+          <select
+            className="dropdown"
+            onChange={handleProvinceChange}
+            value={selectedProvince || ''}
+          >
+            <option value="">Chọn Tỉnh / Thành Phố</option>
+            {provinces.map((province) => (
+              <option key={province.code} value={province.code}>
+                {province.name}
+              </option>
+            ))}
+          </select>
 
-        {/* Dropdown Tìm Huyện/Quận */}
-        <select
-          className="dropdown"
-          disabled={!selectedProvince}
-          value={selectedDistrict || ''}
-          onChange={handleDistrictChange}
-          
-        >
-          <option value="">Chọn Quận / Huyện</option>
-          {districts.map((district) => (
-            <option key={district.code} value={district.code}>
-              {district.name}
-            </option>
-          ))}
-        </select>
-          <div className='tim-kiem'>
-             {/* Ô Input Tìm Kiếm */}
-        <input
-          type="text"
-          placeholder="Nhập từ khóa tìm kiếm"
-          className="search-input"
-        />
+          {/* Dropdown Tìm Huyện/Quận */}
+          <select
+            className="dropdown"
+            disabled={!selectedProvince}
+            value={selectedDistrict || ''}
+            onChange={handleDistrictChange}
+          >
+            <option value="">Chọn Quận / Huyện</option>
+            {districts.map((district) => (
+              <option key={district.code} value={district.code}>
+                {district.name}
+              </option>
+            ))}
+          </select>
+          <div className="tim-kiem">
+            {/* Ô Input Tìm Kiếm */}
+            <input
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Nhập từ khóa tìm kiếm"
+              className="search-input"
+            />
 
-        {/* Nút Tìm */}
-        <button className="search-btn">Tìm</button>
-</div>
-       
-      </div>
+            {/* Nút Tìm */}
+            <button className="search-btn" onClick={handleSubmit}>
+              Tìm
+            </button>
+          </div>
+        </div>
 
-      <div className="header-right">
-        {/* Nút Đăng Nhập */}
-        <button className="nav-btn">
-          <a href="/login">Đăng Nhập</a>
-        </button>
+        <div className="header-right">
+          {/* Nút Đăng Nhập */}
+          <button className="nav-btn">
+            <a href="/login">Đăng Nhập</a>
+          </button>
 
-        {/* Nút Đăng Ký */}
-        <button className="nav-btn">
-          <a href="/register">Đăng Ký</a>
-        </button>
+          {/* Nút Đăng Ký */}
+          <button className="nav-btn">
+            <a href="/register">Đăng Ký</a>
+          </button>
 
-        {/* Nút Đăng Tin */}
-        <button className="nav-btn post-btn">
-          <a href="/login">Đăng Tin</a>
-        </button>
-      </div>
+          {/* Nút Đăng Tin */}
+          <button className="nav-btn post-btn">
+            <a href="/login">Đăng Tin</a>
+          </button>
+        </div>
       </header>
-      <div className='post-list-header'>
+      <div className="post-list-header">
         <PostList
-        province={province}
-        district={district}
-      />
+          province={province}
+          district={district}
+          keyword={submittedValue}
+        />
       </div>
-        
     </>
   );
 };

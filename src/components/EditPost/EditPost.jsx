@@ -22,6 +22,7 @@ const EditPost = () => {
     price: '',
     numBedrooms: '',
     numBathrooms: '',
+    contact:'',
     amenities: {
       dieu_hoa: false,
       nong_lanh: false,
@@ -46,6 +47,7 @@ const EditPost = () => {
         price: edit.price || '',
         numBedrooms: edit.numBedrooms || '',
         numBathrooms: edit.numBathrooms || '',
+        contact : edit.contact || '',
         amenities: {
           dieu_hoa: edit.amenities?.dieu_hoa || false,
           nong_lanh: edit.amenities?.nong_lanh || false,
@@ -307,7 +309,16 @@ const EditPost = () => {
             placeholder="Nhập số phòng tắm"
           />
         </div>
-
+        <div className="contact">
+          <label>Liên hệ</label>
+          <input
+            type="text"
+            name="contact"
+            value={formData.contact}
+            onChange={handleInputChange}
+            placeholder="Nhập SĐT"
+          />
+        </div>
         <div className="noi-bat">
           <div className="tieu-de">
             <label>Nổi Bật</label>

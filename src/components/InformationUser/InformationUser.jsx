@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './InformationUser.css';
 import { useNavigate } from 'react-router-dom';
 import DeletePost from '../DeletePost/DeletePost';
 import EditPost from '../EditPost/EditPost';
+import { PostContext } from '../../PostContext';
 const InformationUser = () => {
   const [selectedSection, setSelectedSection] = useState('userInfo'); // Lưu trạng thái của section
   const [userInfo, setUserInfo] = useState({}); // Lưu thông tin người dùng
@@ -16,10 +17,21 @@ const InformationUser = () => {
   const [isAdmin, setIsAdmin] = useState(false); // Trạng thái admin
   const [show, setShow] = useState(false); // Trạng thái để hiển thị modal
   const [deletepost, setDeletePost] = useState('');
+ const { postStatusMap, updatePostStatus } = useContext(PostContext); 
 
+ 
   const navigate = useNavigate();
   const id = localStorage.getItem('id');
   const token = localStorage.getItem('token');
+
+  const statusClick = (postId) => {
+    // Lấy trạng thái hiện tại của bài đăng
+    const currentStatus = postStatusMap[postId] || 'Còn trống';
+    const newStatus = currentStatus === 'Còn trống' ? 'Đang liên hệ' : 'Còn trống';
+
+    updatePostStatus(postId, newStatus);
+  };
+
   const handleDeleteClick = (postid) => {
     setShow(true);
     setDeletePost(postid);
@@ -193,10 +205,22 @@ const handleStatisticsClick = () => {
                 <li className="bai-post" key={post._id}>
                   <div>
                     <h4>
-                      {index + 1}. {post.address}
+                      <a href={`http://localhost:3000/view-post/${post._id}`}>
+                        {index + 1}. {post.address}
+                      </a>
                     </h4>
                   </div>
                   <div className="sua-xoa">
+                    <>
+                      <button
+                        className="status-bai-viet"
+                        onClick={() => statusClick(post._id)}
+                      >
+                        <a className="status-post">
+                          {postStatusMap[post._id] || 'Còn trống'}
+                        </a>
+                      </button>
+                    </>
                     <>
                       <button className="sua-bai-viet">
                         <a

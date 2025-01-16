@@ -7,6 +7,21 @@
 .form-post-container .anh-chinh{
     width: 80%;
 }
+.form-post-container .view-post-return{
+    margin-top: 20px;
+    margin-left: 60px;
+    font-weight: 700;
+    font-size: 20px;
+    display: flex;
+    color: #5e5656;
+}
+.form-post-container .view-post-return:hover {
+    cursor: pointer;
+    color: rgb(11, 219, 143);
+}
+.view-post-return .return-left{
+    margin-right: 7px;
+}
 .form-post-container .de-xuat{
     font-size: 20px;
     margin-left: 60px;
@@ -14,7 +29,7 @@
     font-weight: 700;
 }
 .anh-chinh .anh-chinh-1{
-    margin-top: 40px;
+    margin-top: 10px;
     padding-right:150px;    
 }
 .form-post-container .anh-phu{

@@ -246,7 +246,13 @@
     border-bottom: 1px solid #e0e0e0;
     transition: background-color 0.3s ease;
 }
-
+.bai-post a{
+    color: black;
+    text-decoration: none;
+}
+.bai-post a:hover{
+    color: rgb(12, 187, 231);
+}
 .bai-post:last-child {
     border-bottom: none;
 }

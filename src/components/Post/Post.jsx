@@ -20,6 +20,7 @@ const Post = () => {
     price: '',
     numBedrooms: '',
     numBathrooms: '',
+    contact:'',
     amenities: {
       dieu_hoa: false,
       nong_lanh: false,
@@ -252,7 +253,16 @@ const Post = () => {
             placeholder="Nhập số phòng tắm"
           />
         </div>
-
+        <div className="contact">
+          <label>Liên hệ</label>
+          <input
+            type="text"
+            name="contact"
+            value={formData.contact}
+            onChange={handleInputChange}
+            placeholder="Nhập SĐT"
+          />
+        </div>
         <div className="noi-bat">
           <div className="tieu-de">
             <label>Nổi Bật</label>
