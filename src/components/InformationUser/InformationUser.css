@@ -280,7 +280,11 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    
 }
+ a.status-post{
+    color: aliceblue;
+ }
 
 .sua-bai-viet {
     background-color: #2575fc;
@@ -304,4 +308,101 @@
 .sua-bai-viet .edit-post{
     text-decoration: none;
     color: white;
+}
+/* CSS cho danh sách bài đăng yêu thích */
+.liked-posts-list {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    /* Màu nền nhạt */
+    border: 1px solid #ddd;
+    /* Đường viền */
+    border-radius: 8px;
+    /* Bo góc */
+}
+
+.liked-posts-list h3 {
+    color: #e91e63;
+    /* Màu tiêu đề */
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e91e63;
+    /* Đường kẻ dưới tiêu đề */
+    padding-bottom: 5px;
+}
+
+.liked-posts-list ul {
+    list-style: none;
+    /* Xóa gạch đầu dòng */
+    padding: 0;
+    margin: 0;
+}
+
+.liked-posts-list ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #ffffff;
+    /* Màu nền cho từng bài đăng */
+    border: 1px solid #ddd;
+    /* Đường viền từng bài đăng */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Đổ bóng nhẹ */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.liked-posts-list ul li:hover {
+    transform: translateY(-3px);
+    /* Hiệu ứng khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Tăng độ đổ bóng khi hover */
+}
+
+.liked-posts-list ul li h4 a {
+    color: #333;
+    /* Màu chữ cho liên kết */
+    text-decoration: none;
+    /* Xóa gạch chân */
+    font-size: 18px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.liked-posts-list ul li h4 a:hover {
+    color: #e91e63;
+    /* Màu chữ khi hover */
+}
+
+.unlike-button {
+    padding: 8px 12px;
+    background-color: #e91e63;
+    /* Màu nền nút */
+    color: #fff;
+    /* Màu chữ nút */
+    border: none;
+    border-radius: 4px;
+    /* Bo góc nút */
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.unlike-button:hover {
+    background-color: #c2185b;
+    /* Màu nền nút khi hover */
+    transform: scale(1.05);
+    /* Hiệu ứng phóng to khi hover */
+}
+
+.liked-posts-list p {
+    color: #888;
+    /* Màu chữ cho thông báo */
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
 }

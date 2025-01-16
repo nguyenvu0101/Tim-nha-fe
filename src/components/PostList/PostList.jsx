@@ -16,11 +16,12 @@ const PostList = ({ province, district, keyword }) => {
   const [currentImages, setCurrentImages] = useState({}); // Lưu trữ ảnh lớn cho từng bài đăng
   const [revealedPostId, setRevealedPostId] = useState(null); // Lưu trữ ID bài đăng được hiển thị số
   const { postStatusMap } = useContext(PostContext); // Sử dụng Context
-  const [likedPosts, setLikedPosts] = useState({});
+  const { likedPosts, toggleLike } = useContext(PostContext); // Sử dụng Context
   console.log(district);
   console.log(province);
   console.log(keyword);
   console.log(postStatusMap);
+  console.log(likedPosts);
   const priceRanges = [
     { label: 'Dưới 1 triệu', min: 0, max: 1 },
     { label: '1 - 3 triệu', min: 1, max: 3 },
@@ -39,12 +40,9 @@ const PostList = ({ province, district, keyword }) => {
     { label: '60 - 70 m²', min: 60, max: 70 },
     { label: 'Trên 70 m²', min: 70, max: Infinity },
   ];
- const handleHeartClick = (postId) => {
-   setLikedPosts((prevLikedPosts) => ({
-     ...prevLikedPosts,
-     [postId]: !prevLikedPosts[postId], // Lật lại trạng thái yêu thích của bài đăng
-   }));
- };
+  const handleHeartClick = (postId) => {
+    toggleLike(postId); // Gọi hàm từ Context để lật trạng thái yêu thích
+  };
   const handleRevealClick = (postId) => {
     // Nếu bài đăng đang được hiển thị thì ẩn đi, ngược lại hiển thị
     setRevealedPostId((prevId) => (prevId === postId ? null : postId));

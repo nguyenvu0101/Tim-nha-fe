@@ -17,17 +17,17 @@ const InformationUser = () => {
   const [isAdmin, setIsAdmin] = useState(false); // Trạng thái admin
   const [show, setShow] = useState(false); // Trạng thái để hiển thị modal
   const [deletepost, setDeletePost] = useState('');
- const { postStatusMap, updatePostStatus } = useContext(PostContext); 
-
- 
+  const { postStatusMap, updatePostStatus } = useContext(PostContext);
+  const { likedPosts, toggleLike } = useContext(PostContext); // Lấy danh sách bài đăng yêu thích
   const navigate = useNavigate();
   const id = localStorage.getItem('id');
   const token = localStorage.getItem('token');
-
+ 
   const statusClick = (postId) => {
     // Lấy trạng thái hiện tại của bài đăng
     const currentStatus = postStatusMap[postId] || 'Còn trống';
-    const newStatus = currentStatus === 'Còn trống' ? 'Đang liên hệ' : 'Còn trống';
+    const newStatus =
+      currentStatus === 'Còn trống' ? 'Đang liên hệ' : 'Còn trống';
 
     updatePostStatus(postId, newStatus);
   };
@@ -117,9 +117,9 @@ const InformationUser = () => {
   const handleClick = () => {
     navigate(`/home/${id}`); // Điều hướng đến đường dẫn mong muốn
   };
-const handleStatisticsClick = () => {
-  navigate(`/admin/${id}`); // Điều hướng đến trang thống kê
-};
+  const handleStatisticsClick = () => {
+    navigate(`/admin/${id}`); // Điều hướng đến trang thống kê
+  };
   // Xử lý đổi mật khẩu
   const handleChangePassword = async (e) => {
     e.preventDefault();
@@ -168,6 +168,12 @@ const handleStatisticsClick = () => {
           Xem danh sách bài đăng
         </button>
         <button
+          className="post-liked"
+          onClick={() => handleButtonClick('post-liked')}
+        >
+          Bài đăng yêu thích
+        </button>
+        <button
           className="information-user-bt3"
           onClick={() => handleButtonClick('changepw')}
         >
@@ -194,6 +200,38 @@ const handleStatisticsClick = () => {
               <strong>Email:</strong> {userInfo.email}
             </p>
             {/* Hiển thị thêm thông tin nếu có */}
+          </div>
+        )}
+        {selectedSection === 'post-liked' && (
+          <div className="liked-posts-list">
+            <h3>Danh Sách Bài Đăng Yêu Thích</h3>
+            {Object.keys(likedPosts).length > 0 ? (
+              <ul>
+                {posts
+                  .filter((post) => likedPosts[post._id]) // Lọc bài đăng đã được yêu thích
+                  .map((post, index) => (
+                    <li key={post._id}>
+                      <div>
+                        <h4>
+                          <a
+                            href={`http://localhost:3000/view-post/${post._id}`}
+                          >
+                            {index + 1}.{post.address}
+                          </a>
+                        </h4>
+                      </div>
+                      <button
+                        className="unlike-button"
+                        onClick={() => toggleLike(post._id)} // Gỡ bài đăng khỏi yêu thích
+                      >
+                        Bỏ yêu thích
+                      </button>
+                    </li>
+                  ))}
+              </ul>
+            ) : (
+              <p>Không có bài đăng yêu thích nào</p>
+            )}
           </div>
         )}
 

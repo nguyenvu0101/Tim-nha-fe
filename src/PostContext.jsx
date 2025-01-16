@@ -6,8 +6,31 @@ export const PostContext = createContext();
 // Tạo Provider
 export const PostProvider = ({ children }) => {
   const [postStatusMap, setPostStatusMap] = useState({});
+  const [likedPosts, setLikedPosts] = useState(() => {
+    // Khôi phục trạng thái từ localStorage khi ứng dụng khởi động
+    const storedLikes = localStorage.getItem('likedPosts');
+    return storedLikes ? JSON.parse(storedLikes) : {};
+  });
+  // Hàm toggle trạng thái yêu thích
+  const toggleLike = (postId) => {
+    setLikedPosts((prev) => {
+      const updatedLikes = { ...prev };
+      if (updatedLikes[postId]) {
+        delete updatedLikes[postId]; // Xóa bài đăng khỏi danh sách yêu thích
+      } else {
+        updatedLikes[postId] = true; // Thêm bài đăng vào danh sách yêu thích
+      }
+      // Lưu trạng thái mới vào localStorage
+      localStorage.setItem('likedPosts', JSON.stringify(updatedLikes));
+      return updatedLikes;
+    });
+  };
 
-  // Lưu trạng thái vào localStorage mỗi khi có sự thay đổi
+  useEffect(() => {
+    // Đồng bộ lại trạng thái vào localStorage khi `likedPosts` thay đổi
+    localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
+  }, [likedPosts]);
+
   useEffect(() => {
     const savedPostStatus = localStorage.getItem('postStatusMap');
     if (savedPostStatus) {
@@ -28,7 +51,14 @@ export const PostProvider = ({ children }) => {
   };
 
   return (
-    <PostContext.Provider value={{ postStatusMap, updatePostStatus }}>
+    <PostContext.Provider
+      value={{
+        postStatusMap,
+        updatePostStatus,
+        likedPosts,
+        toggleLike,
+      }}
+    >
       {children}
     </PostContext.Provider>
   );

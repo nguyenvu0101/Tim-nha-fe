@@ -1,5 +1,6 @@
 .post-list {
     padding: 30px 20px;
+    padding-bottom: 0;
     margin-bottom: 0;
     margin-bottom: 5px;
     font-family: Arial, sans-serif;
@@ -127,7 +128,6 @@
 .paginate-post{
     width: max-content;
     padding: 0;
-    margin-top: 100px;
     margin-left: 70%
 }
 .posts-list .post .paginate-post button {

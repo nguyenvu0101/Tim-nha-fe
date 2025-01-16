@@ -15,10 +15,10 @@ function Footer() {
         <div className="footer-section-1">
           <h3>Liên hệ</h3>
           <p>
-            <strong>Address: </strong> Nam Dinh City
+            <strong>Address: </strong> Đường Chiến Thắng
           </p>
           <p>
-            <strong>Phone: </strong> +84 358387662
+            <strong>Phone: </strong> +84 999999999
           </p>
           <p>
             <strong>Email: </strong> info@timnhatro.com
