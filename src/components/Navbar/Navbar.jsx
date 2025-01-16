@@ -180,12 +180,18 @@ const handleSubmit = () => {
 
           {/* Nút Đăng Tin */}
           <button className="nav-btn post-btn">
-            <a href={`http://localhost:3000/post/${id}`}>Đăng Tin</a>
+            <a href={`http://localhost:3000/select-membership/${id}`}>
+              Đăng Tin
+            </a>
           </button>
         </div>
       </nav>
       <div className="post-list-header">
-        <PostList province={province} district={district} keyword={submittedValue} />
+        <PostList
+          province={province}
+          district={district}
+          keyword={submittedValue}
+        />
       </div>
     </>
   );

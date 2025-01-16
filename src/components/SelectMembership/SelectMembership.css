@@ -1,0 +1,106 @@
+/* 1. Container chính của trang chọn gói thành viên */
+.select-membership-container {
+    max-width: 400px;
+    /* Giảm max-width để trang nhỏ gọn hơn */
+    margin: 0 auto;
+    padding: 15px;
+    /* Giảm padding để tiết kiệm không gian */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 20px;
+}
+
+.select-membership-container h2 {
+    font-size: 20px;
+    /* Giảm font-size của tiêu đề */
+    color: #d61414;
+    margin-bottom: 15px;
+    /* Giảm khoảng cách dưới tiêu đề */
+    font-weight: 600;
+}
+
+/* 2. Các lựa chọn thành viên */
+.membership-option {
+    display: block;
+    margin: 10px 0;
+    /* Giảm margin để các lựa chọn gần nhau hơn */
+    padding: 12px;
+    /* Giảm padding để tiết kiệm không gian */
+    background-color: #fff;
+    border-radius: 6px;
+    /* Giảm border-radius để trông nhỏ gọn hơn */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.membership-option:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.membership-option a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.membership-option h3 {
+    font-size: 18px;
+    /* Giảm font-size của tiêu đề */
+    color: #5606f5;
+    margin-bottom: 8px;
+    /* Giảm khoảng cách dưới tiêu đề */
+}
+
+.membership-option p {
+    font-size: 12px;
+    /* Giảm font-size của các mô tả */
+    color: #777;
+    margin: 3px 0;
+    /* Giảm margin giữa các đoạn văn */
+}
+
+/* 3. Các màu sắc riêng cho từng gói thành viên */
+.membership-basic {
+    border-left: 4px solid #3498db;
+}
+
+.membership-regular {
+    border-left: 4px solid #f39c12;
+}
+
+.membership-vip {
+    border-left: 4px solid #e74c3c;
+}
+
+/* 4. Phần thông báo khi đang xử lý */
+.select-membership-container p {
+    font-size: 14px;
+    /* Giảm kích thước chữ của thông báo */
+    color: #ca337a;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+/* 5. Responsive cho các màn hình nhỏ */
+@media (max-width: 600px) {
+    .select-membership-container {
+        padding: 8px;
+        /* Giảm padding thêm cho các màn hình nhỏ */
+    }
+
+    .membership-option {
+        padding: 10px;
+        margin: 8px 0;
+    }
+
+    .membership-option h3 {
+        font-size: 16px;
+    }
+
+    .membership-option p {
+        font-size: 11px;
+    }
+}

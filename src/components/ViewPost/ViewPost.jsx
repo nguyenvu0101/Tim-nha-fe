@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { PostContext } from '../../PostContext';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 const ViewPost = () => {
   const [provinces, setProvinces] = useState([]); // Danh sách tỉnh
   const [selectedProvince, setSelectedProvince] = useState(null); // Tỉnh đã chọn
@@ -128,6 +129,10 @@ const ViewPost = () => {
       window.location.href = 'http://localhost:3000/';
     }
   };
+   const center = {
+     lat: 21.0285, // Vĩ độ của vị trí
+     lng: 105.8542, // Kinh độ của vị trí
+   };
   return (
     <div className="form-post-container ">
       <div className="view-post-return" onClick={handleReturn}>
@@ -304,6 +309,14 @@ const ViewPost = () => {
             <a>Huỷ</a>
           </div>
         </div> */}
+        </div>
+        <div className="map-vi-tri" style={{ height: '400px', width: '100%' }}>
+          <LoadScript googleMapsApiKey="AIzaSyCazC26glG5xh6wDNIzyfAPao3Znshg0aI">
+            <GoogleMap center={center} zoom={15}>
+              {/* Thêm Marker */}
+              <Marker position={center} />
+            </GoogleMap>
+          </LoadScript>
         </div>
       </div>
       <div className="de-xuat">

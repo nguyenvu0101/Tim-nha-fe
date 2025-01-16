@@ -7,6 +7,12 @@ function Payment() {
   const [paymentUrl, setPaymentUrl] = useState('');
 
   const handlePayment = async () => {
+     if (!orderInfo || orderInfo.trim() === '') {
+       alert('Thông tin đơn hàng không được để trống!');
+       return; // Dừng hàm nếu thông tin đơn hàng trống
+    }
+    console.log(orderInfo);
+    console.log(amount);
     try {
       const response = await axios.post(
         'http://localhost:3003/payment/create-payment',
@@ -15,10 +21,10 @@ function Payment() {
           orderInfo,
         }
       );
-
+      console.log(response.data);
       if (response.data.payUrl) {
         setPaymentUrl(response.data.payUrl);
-        window.location.href = response.data.payUrl; // Chuyển hướng đến trang thanh toán MoMo
+        window.location.href = response.data.payUrl;
       } else {
         alert('Thanh toán thất bại');
       }
@@ -46,7 +52,7 @@ function Payment() {
           type="text"
           value={orderInfo}
           onChange={(e) => setOrderInfo(e.target.value)}
-          placeholder="Nhập thông tin đơn hàng"
+          placeholder="Nhập tên tài khoản hoặc email"
         />
       </div>
       <button className='button-payment' onClick={handlePayment}>Thanh toán</button>
