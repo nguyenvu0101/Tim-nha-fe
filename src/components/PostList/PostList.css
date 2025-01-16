@@ -163,3 +163,30 @@
     z-index: 2;
     border-radius: 5px;
 }
+/* CSS cho phần trái tim */
+.heart-yeu-thich{
+    position: relative;
+}
+.lien-he-post{
+    position: absolute;
+    right: 50px;
+    top:10px;
+}
+.heart {
+    font-size: 40px;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+    margin-left: 50px;
+}
+
+.heart.liked {
+    color: rgb(227, 88, 88);
+    transform: scale(1.01);
+}
+
+.heart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}

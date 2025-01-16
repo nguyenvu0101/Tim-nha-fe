@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons'; // Hoặc chọn icon khác
 import { PostContext } from '../../PostContext';
 const PostList = ({ province, district, keyword }) => {
   const [posts, setPosts] = useState([]); // Lưu trữ dữ liệu từ API
@@ -15,6 +16,7 @@ const PostList = ({ province, district, keyword }) => {
   const [currentImages, setCurrentImages] = useState({}); // Lưu trữ ảnh lớn cho từng bài đăng
   const [revealedPostId, setRevealedPostId] = useState(null); // Lưu trữ ID bài đăng được hiển thị số
   const { postStatusMap } = useContext(PostContext); // Sử dụng Context
+  const [likedPosts, setLikedPosts] = useState({});
   console.log(district);
   console.log(province);
   console.log(keyword);
@@ -37,7 +39,12 @@ const PostList = ({ province, district, keyword }) => {
     { label: '60 - 70 m²', min: 60, max: 70 },
     { label: 'Trên 70 m²', min: 70, max: Infinity },
   ];
-
+ const handleHeartClick = (postId) => {
+   setLikedPosts((prevLikedPosts) => ({
+     ...prevLikedPosts,
+     [postId]: !prevLikedPosts[postId], // Lật lại trạng thái yêu thích của bài đăng
+   }));
+ };
   const handleRevealClick = (postId) => {
     // Nếu bài đăng đang được hiển thị thì ẩn đi, ngược lại hiển thị
     setRevealedPostId((prevId) => (prevId === postId ? null : postId));
@@ -267,15 +274,24 @@ const PostList = ({ province, district, keyword }) => {
                   <strong style={{ fontWeight: '750' }}>Giá:</strong>{' '}
                   {post.price} triệu/tháng
                 </p>
-
-                <button className="phone">
-                  <div className="icon-phone">
-                    <FontAwesomeIcon icon={faPhone} />
+                <div className="heart-yeu-thich">
+                  <div className="lien-he-post">
+                    <button className="phone">
+                      <div className="icon-phone">
+                        <FontAwesomeIcon icon={faPhone} />
+                      </div>
+                      <div onClick={() => handleRevealClick(post._id)}>
+                        {revealedPostId === post._id ? post.contact : 'Hiện số'}
+                      </div>
+                    </button>
                   </div>
-                  <div onClick={() => handleRevealClick(post._id)}>
-                    {revealedPostId === post._id ? post.contact : 'Hiện số'}
+                  <div
+                    className={`heart ${likedPosts[post._id] ? 'liked' : ''}`}
+                    onClick={() => handleHeartClick(post._id)}
+                  >
+                    <FontAwesomeIcon icon={faHeart} size="xs" />
                   </div>
-                </button>
+                </div>
               </div>
             ))}
             <div className="paginate-post">
