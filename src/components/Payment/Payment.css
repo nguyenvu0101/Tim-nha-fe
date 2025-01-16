@@ -1,0 +1,122 @@
+/* Container chính cho trang thanh toán */
+.payment-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    box-sizing: border-box;
+    margin: auto;
+    /* Căn giữa form */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Tiêu đề của trang thanh toán */
+.payment-container h1 {
+    color: #d63f63;
+    /* Màu đỏ hồng MoMo */
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Phần nhập số tiền */
+.price-don-hang,
+.infor-don-hang {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Label cho các trường nhập */
+.payment-label-1,
+.payment-label-2 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Input fields (số tiền và thông tin đơn hàng) */
+.price-don-hang input,
+.infor-don-hang input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Nút thanh toán */
+.button-payment {
+    width: 100%;
+    padding: 14px;
+    background-color: #d63f63;
+    /* Màu đỏ hồng MoMo */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hiệu ứng hover cho nút thanh toán */
+.button-payment:hover {
+    background-color: #b02e3a;
+    /* Màu đỏ đậm hơn khi hover */
+}
+
+/* Hiển thị URL thanh toán */
+.url-thanh-toan {
+    margin-top: 20px;
+    display: none;
+}
+
+.url-thanh-toan p {
+    margin-bottom: 10px;
+}
+
+.url-thanh-toan a {
+    color: #d63f63;
+    /* Màu đỏ hồng MoMo */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.url-thanh-toan a:hover {
+    text-decoration: underline;
+}
+
+/* Thông báo lỗi (nếu có) */
+.payment-container__alert {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Responsive cho các phần tử của form */
+@media (max-width: 600px) {
+    .payment-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .payment-container h1 {
+        font-size: 20px;
+    }
+
+    .price-don-hang input,
+    .infor-don-hang input {
+        font-size: 14px;
+    }
+
+    .button-payment {
+        font-size: 16px;
+    }
+}

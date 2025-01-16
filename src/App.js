@@ -19,7 +19,7 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/payment/momo" element={<PaymentPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
             <Route path="/admin/:id" element={<AdminDashboard />} />
             <Route path="/view-post/:postid" element={<ViewPost />} />
             <Route path="/edit-post/:postid" element={<EditPost />} />
