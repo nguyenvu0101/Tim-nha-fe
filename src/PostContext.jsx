@@ -7,26 +7,25 @@ export const PostContext = createContext();
 export const PostProvider = ({ children }) => {
   const userId = localStorage.getItem('id');
   const [postStatusMap, setPostStatusMap] = useState({});
-  const generateSessionId = () => {
-    return `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
-  };
+  const generateSessionId = () =>
+    `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
 
   const [membershipLevel, setMembershipLevel] = useState(() => {
     // Khôi phục `membershipLevel` từ localStorage
     const storedLevel = localStorage.getItem('membershipLevel');
     return storedLevel ? JSON.parse(storedLevel) : null;
   });
-   let sessionId = localStorage.getItem('sessionId');
+  let sessionId = localStorage.getItem('sessionId');
 
-   if (!userId && !sessionId) {
-     sessionId = generateSessionId(); // Tạo sessionId mới
-     localStorage.setItem('sessionId', sessionId); // Lưu vào localStorage
-   }
-  // Lấy trạng thái yêu thích của người dùng từ localStorage
+  if (!userId && !sessionId) {
+    sessionId = generateSessionId(); // Tạo sessionId mới
+    localStorage.setItem('sessionId', sessionId); // Lưu vào localStorage
+  }
+  const currentKey = userId || sessionId;
+  // Lấy trạng thái yêu thích từ localStorage
   const [likedPosts, setLikedPosts] = useState(() => {
-    const storedLikes = localStorage.getItem('likedPosts');
-    const parsedLikes = storedLikes ? JSON.parse(storedLikes) : {};
-     return parsedLikes[userId] || parsedLikes[sessionId] || {}; // Trả về likedPosts cho userId cụ thể
+    const storedLikes = JSON.parse(localStorage.getItem('likedPosts')) || {};
+    return storedLikes[currentKey] || {}; // Trả về likedPosts chỉ của user/session hiện tại
   });
 
   // Hàm toggle trạng thái yêu thích
@@ -40,23 +39,22 @@ export const PostProvider = ({ children }) => {
       }
 
       // Cập nhật lại likedPosts trong localStorage
+      // Cập nhật lại likedPosts trong localStorage
       const allLikedPosts =
         JSON.parse(localStorage.getItem('likedPosts')) || {};
-      allLikedPosts[userId || sessionId] = updatedLikes; // Lưu danh sách yêu thích theo userId
+      allLikedPosts[currentKey] = updatedLikes; // Lưu chỉ cho user/session hiện tại
       localStorage.setItem('likedPosts', JSON.stringify(allLikedPosts));
 
       return updatedLikes;
     });
   };
 
- useEffect(() => {
-   // Đồng bộ lại trạng thái vào localStorage khi `likedPosts` thay đổi
-   const allLikedPosts = JSON.parse(localStorage.getItem('likedPosts')) || {};
-   allLikedPosts[userId || sessionId] = likedPosts;
-   localStorage.setItem('likedPosts', JSON.stringify(allLikedPosts));
- }, [likedPosts, userId, sessionId]);
-
-
+  useEffect(() => {
+    // Đồng bộ lại trạng thái vào localStorage khi `likedPosts` thay đổi
+    const allLikedPosts = JSON.parse(localStorage.getItem('likedPosts')) || {};
+    allLikedPosts[currentKey] = likedPosts;
+    localStorage.setItem('likedPosts', JSON.stringify(allLikedPosts));
+  }, [likedPosts, currentKey]);
   useEffect(() => {
     const savedPostStatus = localStorage.getItem('postStatusMap');
     if (savedPostStatus) {
