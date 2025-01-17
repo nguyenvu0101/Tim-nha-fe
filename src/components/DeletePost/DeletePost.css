@@ -5,11 +5,11 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    opacity: 100%;
+    opacity: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1;
 }
 
 .xoa-bai-dang {

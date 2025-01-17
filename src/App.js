@@ -15,13 +15,18 @@ import { PostContext, PostProvider } from './PostContext.jsx';
 import PaymentPage from './components/Payment/Payment.jsx';
 import PaymentVip from './components/Payment/vipPayment.jsx';
 import SelectMembership from './components/SelectMembership/SelectMembership.jsx';
+
 function App() {
   return (
     <PostProvider>
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/select-membership/:id" element={<SelectMembership />} />
+            
+            <Route
+              path="/select-membership/:id"
+              element={<SelectMembership />}
+            />
             <Route path="/payment/:id/vip" element={<PaymentVip />} />
             <Route path="/payment/:id/normal" element={<PaymentPage />} />
             <Route path="/admin/:id" element={<AdminDashboard />} />

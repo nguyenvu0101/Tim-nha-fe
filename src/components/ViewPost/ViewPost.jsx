@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { PostContext } from '../../PostContext';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import Footer from '../Footer/Footer';
 const ViewPost = () => {
   const [provinces, setProvinces] = useState([]); // Danh sách tỉnh
   const [selectedProvince, setSelectedProvince] = useState(null); // Tỉnh đã chọn
@@ -435,6 +436,7 @@ const fullAddress = `${edit.district || ''}, ${edit.province || ''}`;
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

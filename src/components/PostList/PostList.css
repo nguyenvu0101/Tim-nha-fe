@@ -190,3 +190,52 @@
     align-items: center;
     margin-top: 20px;
 }
+/* Cấu trúc cho bộ lọc */
+/* Cấu trúc cho bộ lọc */
+.bo-loc {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Tiêu đề của các bộ lọc */
+.bo-loc h4{
+    width: 200px;
+    font-weight: 700;   
+}
+
+/* Khối chứa các nút lọc */
+.bo-loc .filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Cấu trúc cho các nút bấm trong bộ lọc */
+.bo-loc .filter-buttons .btn {
+  margin: 5px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  border: 1px solid transparent;
+  color: #fff;
+  background-color: #4caf50; /* Màu nền xanh lá cho nút */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng chuyển màu */
+}
+
+/* Hiệu ứng khi hover vào nút */
+.bo-loc .filter-buttons .btn:hover {
+  background-color: #43a047; /* Màu xanh lá đậm hơn khi hover */
+  transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi hover */
+}
+
+/* Hiệu ứng khi nút nhận focus */
+.bo-loc .filter-buttons .btn:focus {
+  background-color: #43a047; /* Màu xanh lá đậm khi focus */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5); /* Hiệu ứng viền xanh lá khi focus */
+}
+
+/* Hiệu ứng khi nút đang được nhấn */
+.bo-loc .filter-buttons .btn:active {
+  background-color: #388e3c; /* Màu khi bấm */
+}

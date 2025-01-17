@@ -13,7 +13,7 @@ function Footer() {
     <div className="footer-1">
       <div className="footer-container-1">
         <div className="footer-section-1">
-          <h3>Liên hệ</h3>
+          <h3>Liên Hệ</h3>
           <p>
             <strong>Address: </strong> Đường Chiến Thắng
           </p>
@@ -26,7 +26,7 @@ function Footer() {
         </div>
 
         <div className="footer-section-1">
-          <h3>Follow</h3>
+          <h3>FoLLow</h3>
           <ul className="social-links-1">
             <li>
               <FontAwesomeIcon icon={faFacebook} />
@@ -65,7 +65,7 @@ function Footer() {
         </div>
 
         <div className="footer-section-1">
-          <h3>Quick Links</h3>
+          <h3>Quick Link</h3>
           <ul className="quick-links-1">
             <li>
               <a href="/about">About Us</a>
