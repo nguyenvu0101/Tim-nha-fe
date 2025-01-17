@@ -61,7 +61,10 @@
     margin: 3px 0;
     /* Giảm margin giữa các đoạn văn */
 }
-
+.membership-option h5{
+    font-weight: 600;
+    color: #ca337a;
+}
 /* 3. Các màu sắc riêng cho từng gói thành viên */
 .membership-basic {
     border-left: 4px solid #3498db;
@@ -101,6 +104,9 @@
     }
 
     .membership-option p {
+        font-size: 11px;
+    }
+    .membership-option h5{
         font-size: 11px;
     }
 }
