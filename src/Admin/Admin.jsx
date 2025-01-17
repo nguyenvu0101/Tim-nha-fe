@@ -41,6 +41,18 @@ const AdminDashboard = () => {
     fetchData(); // Gọi hàm fetchData khi component mount
   }, [token]);
 
+ const getMessage = (membership) => {
+   switch (membership) {
+     case 0:
+       return 'Cơ bản';
+     case 1:
+       return 'Thành viên thường';
+     case 2:
+       return 'Thành viên vip';
+     default:
+       return ;
+   }
+ };
   // Tính số lượng bài đăng của mỗi user
   const getPostCountByUser = (userId) => {
     return posts.filter((post) => post.userId === userId).length;
@@ -97,6 +109,7 @@ const AdminDashboard = () => {
             <th>Email</th>
             <th>Vai trò</th>
             <th>Số lượng bài đăng</th>
+            <th>Hạng thành viên</th>
           </tr>
         </thead>
         <tbody>
@@ -108,6 +121,7 @@ const AdminDashboard = () => {
               <td>{user.isAdmin ? 'Admin' : 'Người dùng'}</td>
               <td>{getPostCountByUser(user._id)}</td>{' '}
               {/* Hiển thị số lượng bài đăng của user */}
+              <td>{getMessage(user.membership)}</td>
             </tr>
           ))}
         </tbody>

@@ -2,21 +2,21 @@ import React, { useState , useContext } from 'react';
 import axios from 'axios';
 import './Payment.css';
 import { PostContext } from '../../PostContext';
-function Payment() {
-  const [amount, setAmount] = useState('70000');
+function PaymentVip() {
+  const [amount, setAmount] = useState('200000');
   const [orderInfo, setOrderInfo] = useState('');
-  const [paymentUrl, setPaymentUrl] = useState('');
-  const userId = localStorage.getItem('id');
+    const [paymentUrl, setPaymentUrl] = useState('');
+     const userId = localStorage.getItem('id');
     const { membershipLevel } = useContext(PostContext);
   const handlePayment = async () => {
-     if (!orderInfo || orderInfo.trim() === '') {
-       alert('Thông tin đơn hàng không được để trống!');
-       return; // Dừng hàm nếu thông tin đơn hàng trống
+    if (!orderInfo || orderInfo.trim() === '') {
+      alert('Thông tin đơn hàng không được để trống!');
+      return; // Dừng hàm nếu thông tin đơn hàng trống
     }
     console.log(orderInfo);
-    console.log(amount);
-    console.log(userId);
-    console.log(membershipLevel);
+      console.log(amount);
+      console.log(membershipLevel);
+      console.log(userId);
     try {
       const response = await axios.post(
         'http://localhost:3003/payment/create-payment',
@@ -51,7 +51,6 @@ function Payment() {
           onChange={(e) => setAmount(e.target.value)}
           readOnly // Ngăn người dùng sửa giá trị (nếu cần)
           style={{ cursor: 'not-allowed' }} // Hiển thị con trỏ không thể chỉnh sửa
-        
         />
       </div>
       <div className="infor-don-hang">
@@ -78,4 +77,4 @@ function Payment() {
   );
 }
 
-export default Payment;
+export default PaymentVip;

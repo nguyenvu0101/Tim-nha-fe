@@ -13,6 +13,7 @@ import InformationUser from './components/InformationUser/InformationUser.jsx';
 import AdminDashboard from './Admin/Admin.jsx';
 import { PostContext, PostProvider } from './PostContext.jsx';
 import PaymentPage from './components/Payment/Payment.jsx';
+import PaymentVip from './components/Payment/vipPayment.jsx';
 import SelectMembership from './components/SelectMembership/SelectMembership.jsx';
 function App() {
   return (
@@ -21,13 +22,14 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/select-membership/:id" element={<SelectMembership />} />
-            <Route path="/payment/:id" element={<PaymentPage />} />
+            <Route path="/payment/:id/vip" element={<PaymentVip />} />
+            <Route path="/payment/:id/normal" element={<PaymentPage />} />
             <Route path="/admin/:id" element={<AdminDashboard />} />
             <Route path="/view-post/:postid" element={<ViewPost />} />
             <Route path="/edit-post/:postid" element={<EditPost />} />
             <Route path="/information/:id" element={<InformationUser />} />
             <Route path="/post-list" element={<PostList />} />
-            <Route path="/post/:id" element={<Post />} />
+            <Route path="/post" element={<Post />} />
             <Route path="/home/:id" element={<HomeUser />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />

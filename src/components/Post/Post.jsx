@@ -113,8 +113,8 @@ const Post = () => {
       alert('Dữ liệu đã được gửi thành công!');
       navigate(`/home/${userId}`);
     } catch (error) {
-      // Xử lý lỗi nếu có
-      alert('Có lỗi xảy ra khi gửi dữ liệu!');
+  
+      alert('Bạn đã nhập sai định dạng hoặc số bài đăng của bạn đã đạt giới hạn');
     }
   };
 

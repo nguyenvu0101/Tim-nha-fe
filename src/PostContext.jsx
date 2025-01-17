@@ -6,11 +6,17 @@ export const PostContext = createContext();
 // Tạo Provider
 export const PostProvider = ({ children }) => {
   const [postStatusMap, setPostStatusMap] = useState({});
+    const [membershipLevel, setMembershipLevel] = useState(() => {
+      // Khôi phục `membershipLevel` từ localStorage
+      const storedLevel = localStorage.getItem('membershipLevel');
+      return storedLevel ? JSON.parse(storedLevel) : null;
+    });
   const [likedPosts, setLikedPosts] = useState(() => {
     // Khôi phục trạng thái từ localStorage khi ứng dụng khởi động
     const storedLikes = localStorage.getItem('likedPosts');
     return storedLikes ? JSON.parse(storedLikes) : {};
   });
+  
   // Hàm toggle trạng thái yêu thích
   const toggleLike = (postId) => {
     setLikedPosts((prev) => {
@@ -42,7 +48,12 @@ export const PostProvider = ({ children }) => {
     // Lưu trạng thái bài đăng vào localStorage khi có sự thay đổi
     localStorage.setItem('postStatusMap', JSON.stringify(postStatusMap));
   }, [postStatusMap]);
-
+ useEffect(() => {
+   // Lưu `membershipLevel` vào localStorage khi thay đổi
+   if (membershipLevel !== null) {
+     localStorage.setItem('membershipLevel', JSON.stringify(membershipLevel));
+   }
+ }, [membershipLevel]);
   const updatePostStatus = (postId, status) => {
     setPostStatusMap((prevState) => ({
       ...prevState,
@@ -57,6 +68,8 @@ export const PostProvider = ({ children }) => {
         updatePostStatus,
         likedPosts,
         toggleLike,
+        membershipLevel,
+        setMembershipLevel,
       }}
     >
       {children}
