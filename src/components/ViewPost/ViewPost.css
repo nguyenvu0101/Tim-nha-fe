@@ -1,11 +1,11 @@
 .form-post-container{
     margin: 0;
     padding: 0;
-   
+
 
 }
 .form-post-container .anh-chinh{
-    width: 80%;
+    width: 100%;
 }
 .form-post-container .view-post-return{
     margin-top: 20px;
@@ -28,9 +28,13 @@
     margin-top: 30px;
     font-weight: 700;
 }
+
 .anh-chinh .anh-chinh-1{
     margin-top: 10px;
     padding-right:150px;    
+}
+.map-vi-tri{
+    margin-left: 60px;
 }
 .form-post-container .anh-phu{
     margin-top: 40px;
@@ -136,7 +140,10 @@ font-size: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     /* Subtle shadow for depth */
 }
-
+.anh-chinh .map-vi-tri{
+    border: 5px solid;
+    margin-top: 20px;
+}
 .main-image-anh-phu {
     text-align: center;
     margin: 10px;
@@ -244,7 +251,4 @@ font-size: 15px;
     border-color: #007bff;
 }
 
-.form-post-container {
-    margin: 5% 10% 5% 10%;
-}
- 
+

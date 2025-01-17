@@ -130,6 +130,7 @@ const ViewPost = () => {
       window.location.href = 'http://localhost:3000/';
     }
   };
+
   const center = {
     lat: 21.0285, // Vĩ độ của vị trí
     lng: 105.8542, // Kinh độ của vị trí
@@ -315,9 +316,9 @@ const ViewPost = () => {
         <div
           className="map-vi-tri"
           style={{
-            height: '400px',
-            width: '100%',
-            marginLeft: '10%'
+            height: '500px',
+            width: '70%',
+            
           }}
         >
           <LoadScript googleMapsApiKey="AIzaSyCPmrcwqPtSIze8rorai9g0q63BySdWHQg">
