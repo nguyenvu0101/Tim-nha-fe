@@ -23,8 +23,13 @@ const ViewPost = () => {
   const navigate = useNavigate();
   const userId = localStorage.getItem('id');
   const token = localStorage.getItem('token');
+  const [kinhdo, setKinhdo] = useState('');
+  const[vido , setVido]=useState('')
   const { postStatusMap } = useContext(PostContext); // Sử dụng Context
-
+const [center, setCenter] = useState({
+  lat: 0, // Giá trị mặc định (có thể là tọa độ trung tâm ban đầu)
+  lng: 0, // Giá trị mặc định (có thể là tọa độ trung tâm ban đầu)
+});
   const [formData, setFormData] = useState({
     province: '',
     district: '',
@@ -74,7 +79,7 @@ const ViewPost = () => {
       });
     }
   }, [edit]);
-
+const fullAddress = `${edit.district || ''}, ${edit.province || ''}`;
   const { postid } = useParams();
   // Fetch dữ liệu bài đăng để chỉnh sửa
   console.log(postid);
@@ -130,11 +135,51 @@ const ViewPost = () => {
       window.location.href = 'http://localhost:3000/';
     }
   };
-
-  const center = {
-    lat: 21.0285, // Vĩ độ của vị trí
-    lng: 105.8542, // Kinh độ của vị trí
+  const getCoordinates = async (address) => {
+    try {
+      const response = await axios.get(
+        'https://nominatim.openstreetmap.org/search',
+        {
+          params: {
+            q: address,
+            format: 'json',
+            addressdetails: 1,
+            limit: 1,
+          },
+        }
+      );
+      console.log(response.data);
+      if (response.data.length > 0) {
+        const { lat, lon } = response.data[0];
+        setVido(lat);
+        setKinhdo(lon);
+        setCenter({
+          lat: parseFloat(lat), // Cập nhật center khi có tọa độ
+          lng: parseFloat(lon), // Cập nhật center khi có tọa độ
+        });
+        console.log(`Kinh độ: ${lon}, Vĩ độ: ${lat}`);
+        return { lat: parseFloat(lat), lon: parseFloat(lon) };
+      } else {
+        console.error('Không tìm thấy tọa độ cho địa chỉ này.');
+        return null;
+      }
+    } catch (error) {
+      console.error('Lỗi khi gọi API Nominatim:', error);
+      return null;
+    }
   };
+  useEffect(() => {
+    if (fullAddress) {
+      getCoordinates(fullAddress); // Gọi hàm chỉ khi địa chỉ có giá trị
+    }
+  }, [fullAddress]);
+
+  // const center = {
+  //   lat: vido, // Vĩ độ của vị trí
+  //   lng: kinhdo, // Kinh độ của vị trí
+  // };
+  
+
   return (
     <div className="form-post-container " >
       <div className="view-post-return" onClick={handleReturn}>
