@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './ViewPost.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,7 +24,7 @@ const ViewPost = () => {
   const userId = localStorage.getItem('id');
   const token = localStorage.getItem('token');
   const { postStatusMap } = useContext(PostContext); // Sử dụng Context
-  
+
   const [formData, setFormData] = useState({
     province: '',
     district: '',
@@ -47,6 +47,7 @@ const ViewPost = () => {
     },
     images: [], // Thêm trường để lưu ảnh
   });
+
   useEffect(() => {
     if (edit && Object.keys(edit).length > 0) {
       setFormData({
@@ -129,12 +130,12 @@ const ViewPost = () => {
       window.location.href = 'http://localhost:3000/';
     }
   };
-   const center = {
-     lat: 21.0285, // Vĩ độ của vị trí
-     lng: 105.8542, // Kinh độ của vị trí
-   };
+  const center = {
+    lat: 21.0285, // Vĩ độ của vị trí
+    lng: 105.8542, // Kinh độ của vị trí
+  };
   return (
-    <div className="form-post-container ">
+    <div className="form-post-container " >
       <div className="view-post-return" onClick={handleReturn}>
         <div className="return-left">
           <FontAwesomeIcon icon={faAngleLeft} />
@@ -310,10 +311,25 @@ const ViewPost = () => {
           </div>
         </div> */}
         </div>
-        <div className="map-vi-tri" style={{ height: '400px', width: '100%' }}>
-          <LoadScript googleMapsApiKey="AIzaSyCazC26glG5xh6wDNIzyfAPao3Znshg0aI">
-            <GoogleMap center={center} zoom={15}>
-              {/* Thêm Marker */}
+
+        <div
+          className="map-vi-tri"
+          style={{
+            height: '400px',
+            width: '100%',
+            marginLeft: '10%'
+          }}
+        >
+          <LoadScript googleMapsApiKey="AIzaSyCPmrcwqPtSIze8rorai9g0q63BySdWHQg">
+            <GoogleMap
+              center={center} // Đặt trung tâm bản đồ
+              zoom={15} // Cài đặt độ zoom
+              mapContainerStyle={{
+                height: '100%', // Đảm bảo chiều cao của bản đồ
+                width: '100%', // Đảm bảo chiều rộng của bản đồ
+              }}
+            >
+              {/* Thêm Marker vào bản đồ */}
               <Marker position={center} />
             </GoogleMap>
           </LoadScript>

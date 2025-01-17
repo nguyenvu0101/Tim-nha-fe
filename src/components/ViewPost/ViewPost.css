@@ -243,3 +243,8 @@ font-size: 15px;
     color: white;
     border-color: #007bff;
 }
+
+.form-post-container {
+    margin: 5% 10% 5% 10%;
+}
+ 
