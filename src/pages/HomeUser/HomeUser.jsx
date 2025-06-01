@@ -7,6 +7,7 @@ function HomeUser() {
     <Layout_User>
       {/* <PostList /> */}
     </Layout_User>
+    
   );
 }
 
